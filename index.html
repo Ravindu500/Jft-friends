@@ -1550,112 +1550,899 @@ function renderKanjiList(container){
 
 /* ============ KANJI EXAM DATA (self-tested flashcards) ============ */
 const kanjiExamData = [
-  {"kanji":"英語","reading":"えいご","meaning":"ඉංග්‍රීසි භාෂාව"},
-  {"kanji":"年","reading":"ねん","meaning":"අවුරුද්ද"},
-  {"kanji":"住所","reading":"じゅうしょ","meaning":"ලිපිනය"},
-  {"kanji":"軽い","reading":"かるい","meaning":"සැහැල්ලුයි"},
-  {"kanji":"仕事","reading":"しごと","meaning":"රැකියාව"},
-  {"kanji":"高い","reading":"たかい","meaning":"උසයි / මිල අධිකයි"},
-  {"kanji":"食堂","reading":"しょくどう","meaning":"ආපනශාලාව"},
-  {"kanji":"時間","reading":"じかん","meaning":"වේලාව"},
-  {"kanji":"練習","reading":"れんしゅう","meaning":"අභ්‍යාස"},
-  {"kanji":"円","reading":"えん","meaning":"ජපන් මුදල් ඒකකය"},
-  {"kanji":"明るい","reading":"あかるい","meaning":"දීප්තිමත්"},
-  {"kanji":"分","reading":"ふん","meaning":"මිනිත්තු"},
-  {"kanji":"半","reading":"はん","meaning":"භාගය"},
-  {"kanji":"店","reading":"","meaning":"කඩය"},
-  {"kanji":"近所","reading":"きんじょ","meaning":"අසල්වැසි"},
-  {"kanji":"出発する","reading":"しゅっぱつする","meaning":"පිටත්ව යනවා"},
-  {"kanji":"質問","reading":"しつもん","meaning":"ප්‍රශ්නය"},
-  {"kanji":"頭","reading":"あたま","meaning":"ඔලුව රිදෙනවා"},
-  {"kanji":"服","reading":"ふく","meaning":"ඇඳුම් අඳිනවා"},
-  {"kanji":"写真","reading":"しゃしん","meaning":"ඡායාරූපය"},
-  {"kanji":"出口","reading":"でぐち","meaning":"පිටවීමේ දොරටුව"},
-  {"kanji":"集まる","reading":"あつまる","meaning":"රැස්වෙනවා"},
-  {"kanji":"歌","reading":"うた","meaning":"සින්දු"},
-  {"kanji":"大きい","reading":"おおきい","meaning":"ලොකු"},
-  {"kanji":"注文","reading":"ちゅうもん","meaning":"ඇනවුම"},
-  {"kanji":"音楽","reading":"おんがく","meaning":"සංගීතය"},
-  {"kanji":"窓口","reading":"まどぐち","meaning":"කවුන්ටරය / ටිකට් පත නිකුත් කරන ස්ථානය"},
-  {"kanji":"長い","reading":"ながい","meaning":"දිග"},
-  {"kanji":"幸せ","reading":"しあわせ","meaning":"සතුටුයි (හිරගනා පමණයි)"},
-  {"kanji":"楽しい","reading":"たのしい","meaning":"විනෝදජනක"},
-  {"kanji":"教室","reading":"きょうしつ","meaning":"පන්ති කාමරය"},
-  {"kanji":"午前","reading":"ごぜん","meaning":"පෙරවරු (හිරගනා පමණයි)"},
-  {"kanji":"計画","reading":"けいかく","meaning":"සැලැස්ම"},
-  {"kanji":"痛い","reading":"いたい","meaning":"රිදෙනවා"},
-  {"kanji":"近く","reading":"ちかく","meaning":"ළඟ"},
-  {"kanji":"読みます","reading":"よみます","meaning":"කියවනවා"},
-  {"kanji":"作る","reading":"つくる","meaning":"හදනවා"},
-  {"kanji":"上手な","reading":"じょうずな","meaning":"දක්ෂයි"},
-  {"kanji":"料理","reading":"りょうり","meaning":"ආහාර"},
-  {"kanji":"旅館","reading":"りょかん","meaning":"ජපන් සම්ප්‍රදායික නවාතැන"},
-  {"kanji":"台風","reading":"たいふう","meaning":"සුළි කුණාටුව"},
-  {"kanji":"有名な","reading":"ゆうめいな","meaning":"ප්‍රසිද්ධ"},
-  {"kanji":"門","reading":"もん","meaning":"ගේට්ටුව"},
-  {"kanji":"カップを必要なです","reading":"カップをひつようなです","meaning":"කෝප්ප අවශ්‍යයි"},
-  {"kanji":"午後","reading":"ごご","meaning":"පස්වරු"},
-  {"kanji":"調べて","reading":"しらべる","meaning":"පරීක්ෂා කරනවා"},
-  {"kanji":"毎日","reading":"まいにち","meaning":"සෑම දිනකම"},
-  {"kanji":"少し","reading":"すこし","meaning":"ටිකක් / ස්වල්පයක්"},
-  {"kanji":"並びます","reading":"ならびます","meaning":"පේළි ගැසෙනවා"},
-  {"kanji":"来週","reading":"らいしゅう","meaning":"ලබන සතිය"},
-  {"kanji":"外国","reading":"がいこく","meaning":"විදේශ රට"},
-  {"kanji":"忙しい","reading":"いそがしい","meaning":"කාර්යබහුල"},
-  {"kanji":"会社","reading":"かいしゃ","meaning":"සමාගම / ආයතනය"},
-  {"kanji":"短い","reading":"みじかい","meaning":"කොට / කෙටි"},
-  {"kanji":"家","reading":"いえ / うち","meaning":"ගෙදර / නිවස"},
-  {"kanji":"金曜日","reading":"きんようび","meaning":"සිකුරාදා"},
-  {"kanji":"習います","reading":"ならいます","meaning":"ඉගෙනගන්නවා"},
-  {"kanji":"映画","reading":"えいが","meaning":"චිත්‍රපටය"},
-  {"kanji":"続ける","reading":"つづける","meaning":"දිගටම කරගෙන යනවා"},
-  {"kanji":"公園","reading":"こうえん","meaning":"උද්‍යානය / පාක් එක"},
-  {"kanji":"昼","reading":"ひる","meaning":"දහවල"},
-  {"kanji":"静かな","reading":"しずかな","meaning":"නිශ්ශබ්ද / සාමකාමී"},
-  {"kanji":"苦手","reading":"にがて","meaning":"අදක්ෂ / අකමැති"},
-  {"kanji":"夜","reading":"よる","meaning":"රාත්‍රිය"},
-  {"kanji":"朝","reading":"あさ","meaning":"උදෑසන"},
-  {"kanji":"聞きます","reading":"ききます","meaning":"අසනවා / ඇහුම්කන් දෙනවා"},
-  {"kanji":"会います","reading":"あいます","meaning":"හමුවෙනවා"},
-  {"kanji":"被ります","reading":"かぶります","meaning":"(තොප්පියක් ආදිය) දමනවා / පැළඳගන්නවා"},
-  {"kanji":"下","reading":"した","meaning":"යට / පහළ"},
-  {"kanji":"嬉しい","reading":"うれしい","meaning":"සතුටුදායක"},
-  {"kanji":"煩い","reading":"うるさい","meaning":"කරදරකාරී / ඝෝෂාකාරී"},
-  {"kanji":"店員","reading":"てんいん","meaning":"සාප්පු සේවක / වෙළඳ සහායක"},
-  {"kanji":"経験","reading":"けいけん","meaning":"අත්දැකීම්"},
-  {"kanji":"心配","reading":"しんぱい","meaning":"කනස්සල්ල / බිය"},
-  {"kanji":"降りて","reading":"おりて","meaning":"බැස (වාහනයකින් ආදිය)"},
-  {"kanji":"古い","reading":"ふるい","meaning":"පැරණි"},
-  {"kanji":"難しい","reading":"むずかしい","meaning":"අමාරු / දුෂ්කර"},
-  {"kanji":"結婚","reading":"けっこん","meaning":"විවාහය"},
-  {"kanji":"卒業","reading":"そつぎょう","meaning":"උපාධිය ලැබීම / අධ්‍යාපනය අවසන් කිරීම"},
-  {"kanji":"調べる","reading":"しらべる","meaning":"පරීක්ෂා කරනවා / සොයා බලනවා"},
-  {"kanji":"捨てて","reading":"すてて","meaning":"විසි කරලා / අයින් කරලා"},
-  {"kanji":"払って","reading":"はらって","meaning":"මුදල් ගෙවලා"},
-  {"kanji":"会議室","reading":"かいぎしつ","meaning":"රැස්වීම් කාමරය"},
-  {"kanji":"試験","reading":"しけん","meaning":"විභාගය / පරීක්ෂණය"},
-  {"kanji":"上手","reading":"じょうず","meaning":"දක්ෂ"},
-  {"kanji":"必ず","reading":"かならず","meaning":"අනිවාර්යයෙන්ම"},
-  {"kanji":"最近","reading":"さいきん","meaning":"මෑතකදී / මේ දිනවල"},
-  {"kanji":"運転","reading":"うんてん","meaning":"රිය පැදීම"},
-  {"kanji":"広い","reading":"ひろい","meaning":"ඉඩකඩ ඇති / පුළුල්"},
-  {"kanji":"文化","reading":"ぶんか","meaning":"සංස්කෘතිය"},
-  {"kanji":"魚","reading":"さかな","meaning":"මාළු"},
-  {"kanji":"入口","reading":"いりぐち","meaning":"ඇතුල්වීම / දොරටුව"},
-  {"kanji":"牛乳","reading":"ぎゅうにゅう","meaning":"එළකිරි"},
-  {"kanji":"黒いビル","reading":"くろいビル","meaning":"කළු පාට ගොඩනැගිල්ල"},
-  {"kanji":"妹","reading":"いもうと","meaning":"(තමාගේ) නංගී"},
-  {"kanji":"教えて","reading":"おしえて","meaning":"කියා දෙන්න / උගන්වන්න"},
-  {"kanji":"明日","reading":"あした","meaning":"හෙට"},
-  {"kanji":"甘い","reading":"あまい","meaning":"පැණිරස"},
-  {"kanji":"飲む","reading":"のむ","meaning":"බොනවා"},
-  {"kanji":"合格","reading":"ごうかく","meaning":"විභාගයෙන් සමත් වීම"},
-  {"kanji":"花","reading":"はな","meaning":"මල්"},
-  {"kanji":"世界","reading":"せかい","meaning":"ලෝකය"},
-  {"kanji":"先週","reading":"せんしゅう","meaning":"ගිය සතිය"}
+  {
+    "kanji": "山",
+    "reading": "やま",
+    "meaning": "කන්ද"
+  },
+  {
+    "kanji": "川",
+    "reading": "かわ",
+    "meaning": "ගඟ"
+  },
+  {
+    "kanji": "海",
+    "reading": "うみ",
+    "meaning": "මුහුද"
+  },
+  {
+    "kanji": "島",
+    "reading": "しま",
+    "meaning": "දූපත"
+  },
+  {
+    "kanji": "森",
+    "reading": "もり",
+    "meaning": "වනාන්තරය"
+  },
+  {
+    "kanji": "客",
+    "reading": "きゃく",
+    "meaning": "පාරිභෝගිකයා"
+  },
+  {
+    "kanji": "観光地",
+    "reading": "かんこうち",
+    "meaning": "සංචාරක ස්ථානය"
+  },
+  {
+    "kanji": "意味",
+    "reading": "いみ",
+    "meaning": "අර්ථය"
+  },
+  {
+    "kanji": "経験",
+    "reading": "けいけん",
+    "meaning": "අත්දැකීම"
+  },
+  {
+    "kanji": "写真",
+    "reading": "しゃしん",
+    "meaning": "ඡායාරූපය"
+  },
+  {
+    "kanji": "歌",
+    "reading": "うた",
+    "meaning": "සින්දුව"
+  },
+  {
+    "kanji": "歌手",
+    "reading": "かしゅ",
+    "meaning": "ගායකයා"
+  },
+  {
+    "kanji": "上手な",
+    "reading": "じょうずな",
+    "meaning": "දක්ෂ"
+  },
+  {
+    "kanji": "明るい",
+    "reading": "あかるい",
+    "meaning": "දීප්තිමත්"
+  },
+  {
+    "kanji": "長い",
+    "reading": "ながい",
+    "meaning": "දිග"
+  },
+  {
+    "kanji": "短い",
+    "reading": "みじかい",
+    "meaning": "කෙටි"
+  },
+  {
+    "kanji": "着る",
+    "reading": "きる",
+    "meaning": "අඳිනවා"
+  },
+  {
+    "kanji": "立つ",
+    "reading": "たつ",
+    "meaning": "නැගී සිටිනවා"
+  },
+  {
+    "kanji": "泣く",
+    "reading": "なく",
+    "meaning": "අඬනවා"
+  },
+  {
+    "kanji": "注文",
+    "reading": "ちゅうもん",
+    "meaning": "ඇණවුම"
+  },
+  {
+    "kanji": "会計",
+    "reading": "かいけい",
+    "meaning": "ගිණුම්කරණය"
+  },
+  {
+    "kanji": "予約",
+    "reading": "よやく",
+    "meaning": "වෙන්කරවීම"
+  },
+  {
+    "kanji": "電話番号",
+    "reading": "でんわばんごう",
+    "meaning": "දුරකථන අංකය"
+  },
+  {
+    "kanji": "～様",
+    "reading": "さま",
+    "meaning": "Mr/Mrs"
+  },
+  {
+    "kanji": "ご飯",
+    "reading": "ごはん",
+    "meaning": "බත් / කෑම"
+  },
+  {
+    "kanji": "牛乳",
+    "reading": "ぎゅうにゅう",
+    "meaning": "කිරි"
+  },
+  {
+    "kanji": "生",
+    "reading": "なま",
+    "meaning": "අමු"
+  },
+  {
+    "kanji": "禁煙",
+    "reading": "きんえん",
+    "meaning": "දුම්පානය තහනම්"
+  },
+  {
+    "kanji": "自由",
+    "reading": "じゆう",
+    "meaning": "නිදහස"
+  },
+  {
+    "kanji": "塩",
+    "reading": "しお",
+    "meaning": "ලුණු"
+  },
+  {
+    "kanji": "油",
+    "reading": "あぶら",
+    "meaning": "තෙල්"
+  },
+  {
+    "kanji": "量",
+    "reading": "りょう",
+    "meaning": "ප්‍රමාණය"
+  },
+  {
+    "kanji": "～方",
+    "reading": "かた",
+    "meaning": "ක්‍රමය"
+  },
+  {
+    "kanji": "～屋",
+    "reading": "や",
+    "meaning": "වෙළඳසැල් වර්ගය"
+  },
+  {
+    "kanji": "満足な",
+    "reading": "まんぞくな",
+    "meaning": "තෘප්තිමත්"
+  },
+  {
+    "kanji": "切る",
+    "reading": "きる",
+    "meaning": "කපනවා"
+  },
+  {
+    "kanji": "焼く",
+    "reading": "やく",
+    "meaning": "පුළුස්සනවා / බදිනවා"
+  },
+  {
+    "kanji": "入れる",
+    "reading": "いれる",
+    "meaning": "දමනවා / ඇතුළු කරනවා"
+  },
+  {
+    "kanji": "自然",
+    "reading": "しぜん",
+    "meaning": "ස්වභාවික"
+  },
+  {
+    "kanji": "交通",
+    "reading": "こうつう",
+    "meaning": "ප්‍රවාහනය"
+  },
+  {
+    "kanji": "船",
+    "reading": "ふね",
+    "meaning": "නැව"
+  },
+  {
+    "kanji": "自転車",
+    "reading": "じてんしゃ",
+    "meaning": "බයිසිකලය"
+  },
+  {
+    "kanji": "旅館",
+    "reading": "りょかん",
+    "meaning": "ජපන් හෝටලය"
+  },
+  {
+    "kanji": "東京",
+    "reading": "とうきょう",
+    "meaning": "ටෝකියෝ"
+  },
+  {
+    "kanji": "計画",
+    "reading": "けいかく",
+    "meaning": "සැලැස්ම"
+  },
+  {
+    "kanji": "遊ぶ",
+    "reading": "あそぶ",
+    "meaning": "සෙල්ලම් කරනවා"
+  },
+  {
+    "kanji": "調べる",
+    "reading": "しらべる",
+    "meaning": "පරීක්ෂා කරනවා"
+  },
+  {
+    "kanji": "出発する",
+    "reading": "しゅっぱつする",
+    "meaning": "පිටත් වෙනවා"
+  },
+  {
+    "kanji": "運転",
+    "reading": "うんてん",
+    "meaning": "රිය පැදවීම"
+  },
+  {
+    "kanji": "事故",
+    "reading": "じこ",
+    "meaning": "අනතුර"
+  },
+  {
+    "kanji": "故障",
+    "reading": "こしょう",
+    "meaning": "බිඳවැටීම"
+  },
+  {
+    "kanji": "指定席",
+    "reading": "していせき",
+    "meaning": "වෙන්කරන ලද ආසනය"
+  },
+  {
+    "kanji": "週末",
+    "reading": "しゅうまつ",
+    "meaning": "සති අන්තය"
+  },
+  {
+    "kanji": "絵",
+    "reading": "え",
+    "meaning": "චිත්‍රය"
+  },
+  {
+    "kanji": "空",
+    "reading": "そら",
+    "meaning": "අහස"
+  },
+  {
+    "kanji": "泳ぐ",
+    "reading": "およぐ",
+    "meaning": "පිහිනනවා"
+  },
+  {
+    "kanji": "光る",
+    "reading": "ひかる",
+    "meaning": "දිලිසෙනවා"
+  },
+  {
+    "kanji": "到着する",
+    "reading": "とうちゃくする",
+    "meaning": "ළඟා වෙනවා"
+  },
+  {
+    "kanji": "お知らせ",
+    "reading": "おしらせ",
+    "meaning": "දැනුම්දීම"
+  },
+  {
+    "kanji": "今月",
+    "reading": "こんげつ",
+    "meaning": "මේ මාසය"
+  },
+  {
+    "kanji": "水道",
+    "reading": "すいどう",
+    "meaning": "ජල සම්පාදනය"
+  },
+  {
+    "kanji": "工事",
+    "reading": "こうじ",
+    "meaning": "ඉදිකිරීම්"
+  },
+  {
+    "kanji": "広場",
+    "reading": "ひろば",
+    "meaning": "ප්‍රජා අවකාශය"
+  },
+  {
+    "kanji": "場合",
+    "reading": "ばあい",
+    "meaning": "අවස්ථාව"
+  },
+  {
+    "kanji": "中止",
+    "reading": "ちゅうし",
+    "meaning": "අවලංගු කිරීම"
+  },
+  {
+    "kanji": "条件",
+    "reading": "じょうけん",
+    "meaning": "කොන්දේසිය"
+  },
+  {
+    "kanji": "～以上",
+    "reading": "いじょう",
+    "meaning": "ඊට වැඩි / ඉහත"
+  },
+  {
+    "kanji": "開く",
+    "reading": "ひらく",
+    "meaning": "විවෘත කරනවා"
+  },
+  {
+    "kanji": "生産する",
+    "reading": "せいさんする",
+    "meaning": "නිෂ්පාදනය කරනවා"
+  },
+  {
+    "kanji": "来年",
+    "reading": "らいねん",
+    "meaning": "ලබන අවුරුද්ද"
+  },
+  {
+    "kanji": "会場",
+    "reading": "かいじょう",
+    "meaning": "ශාලාව"
+  },
+  {
+    "kanji": "世界",
+    "reading": "せかい",
+    "meaning": "ලෝකය"
+  },
+  {
+    "kanji": "体験",
+    "reading": "たいけん",
+    "meaning": "අත්දැකීම"
+  },
+  {
+    "kanji": "国際交流",
+    "reading": "こくさいこうりゅう",
+    "meaning": "ජාත්‍යන්තර හුවමාරුව"
+  },
+  {
+    "kanji": "禁止",
+    "reading": "きんし",
+    "meaning": "තහනම"
+  },
+  {
+    "kanji": "紙",
+    "reading": "かみ",
+    "meaning": "කඩදාසි"
+  },
+  {
+    "kanji": "始まる",
+    "reading": "はじまる",
+    "meaning": "ආරම්භ වෙනවා"
+  },
+  {
+    "kanji": "申し込む",
+    "reading": "もうしこむ",
+    "meaning": "අයදුම් කරනවා"
+  },
+  {
+    "kanji": "今年",
+    "reading": "ことし",
+    "meaning": "මේ අවුරුද්ද"
+  },
+  {
+    "kanji": "昨年",
+    "reading": "さくねん",
+    "meaning": "පසුගිය අවුරුද්ද"
+  },
+  {
+    "kanji": "毎年",
+    "reading": "まいとし",
+    "meaning": "හැම අවුරුද්දේම"
+  },
+  {
+    "kanji": "文化",
+    "reading": "ぶんか",
+    "meaning": "සංස්කෘතිය"
+  },
+  {
+    "kanji": "祭り",
+    "reading": "まつり",
+    "meaning": "උත්සවය"
+  },
+  {
+    "kanji": "正月",
+    "reading": "しょうがつ",
+    "meaning": "අලුත් අවුරුද්ද"
+  },
+  {
+    "kanji": "～式",
+    "reading": "しき",
+    "meaning": "උත්සවය / ආකාරය"
+  },
+  {
+    "kanji": "大人",
+    "reading": "おとな",
+    "meaning": "වැඩිහිටියා"
+  },
+  {
+    "kanji": "米",
+    "reading": "こめ",
+    "meaning": "සහල්"
+  },
+  {
+    "kanji": "特別な",
+    "reading": "とくべつな",
+    "meaning": "විශේෂ"
+  },
+  {
+    "kanji": "服",
+    "reading": "ふく",
+    "meaning": "ඇඳුම්"
+  },
+  {
+    "kanji": "袋",
+    "reading": "ふくろ",
+    "meaning": "බෑගය"
+  },
+  {
+    "kanji": "自分",
+    "reading": "じぶん",
+    "meaning": "තමා"
+  },
+  {
+    "kanji": "店長",
+    "reading": "てんちょう",
+    "meaning": "සාප්පු කළමනාකරු"
+  },
+  {
+    "kanji": "全員",
+    "reading": "ぜんいん",
+    "meaning": "සියලු දෙනා"
+  },
+  {
+    "kanji": "習慣",
+    "reading": "しゅうかん",
+    "meaning": "පුරුද්ද"
+  },
+  {
+    "kanji": "普通",
+    "reading": "ふつう",
+    "meaning": "සාමාන්‍ය"
+  },
+  {
+    "kanji": "暗い",
+    "reading": "くらい",
+    "meaning": "අඳුරු"
+  },
+  {
+    "kanji": "残る",
+    "reading": "のこる",
+    "meaning": "ඉතිරි වෙනවා"
+  },
+  {
+    "kanji": "入院する",
+    "reading": "にゅういんする",
+    "meaning": "රෝහල්ගත වීම"
+  },
+  {
+    "kanji": "色",
+    "reading": "いろ",
+    "meaning": "පාට"
+  },
+  {
+    "kanji": "赤",
+    "reading": "あか",
+    "meaning": "රතු"
+  },
+  {
+    "kanji": "青",
+    "reading": "あお",
+    "meaning": "නිල්"
+  },
+  {
+    "kanji": "黒",
+    "reading": "くろ",
+    "meaning": "කළු"
+  },
+  {
+    "kanji": "白",
+    "reading": "しろ",
+    "meaning": "සුදු"
+  },
+  {
+    "kanji": "女性",
+    "reading": "じょせい",
+    "meaning": "කාන්තාව"
+  },
+  {
+    "kanji": "男性",
+    "reading": "だんせい",
+    "meaning": "පිරිමි"
+  },
+  {
+    "kanji": "急に",
+    "reading": "きゅうに",
+    "meaning": "හදිසියෙන්"
+  },
+  {
+    "kanji": "営業する",
+    "reading": "えいぎょうする",
+    "meaning": "ව්‍යාපාර කරනවා"
+  },
+  {
+    "kanji": "案内する",
+    "reading": "あんないする",
+    "meaning": "මග පෙන්වීම"
+  },
+  {
+    "kanji": "商品",
+    "reading": "しょうひん",
+    "meaning": "භාණ්ඩ"
+  },
+  {
+    "kanji": "値段",
+    "reading": "ねだん",
+    "meaning": "මිල"
+  },
+  {
+    "kanji": "価格",
+    "reading": "かかく",
+    "meaning": "මිල / වටිනාකම"
+  },
+  {
+    "kanji": "消費税",
+    "reading": "しょうひぜい",
+    "meaning": "පාරිභෝගික බදු"
+  },
+  {
+    "kanji": "税別",
+    "reading": "ぜいべつ",
+    "meaning": "බදු වෙන වෙනම"
+  },
+  {
+    "kanji": "店員",
+    "reading": "てんいん",
+    "meaning": "සාප්පු සේවකයා"
+  },
+  {
+    "kanji": "親切な",
+    "reading": "しんせつな",
+    "meaning": "කරුණාවන්ත"
+  },
+  {
+    "kanji": "重い",
+    "reading": "おもい",
+    "meaning": "බර"
+  },
+  {
+    "kanji": "軽い",
+    "reading": "かるい",
+    "meaning": "සැහැල්ලු"
+  },
+  {
+    "kanji": "変わる",
+    "reading": "かわる",
+    "meaning": "වෙනස් වීම"
+  },
+  {
+    "kanji": "市",
+    "reading": "し",
+    "meaning": "නගරය"
+  },
+  {
+    "kanji": "料金",
+    "reading": "りょうきん",
+    "meaning": "ගාස්තුව"
+  },
+  {
+    "kanji": "図書館",
+    "reading": "としょかん",
+    "meaning": "පුස්තකාලය"
+  },
+  {
+    "kanji": "道具",
+    "reading": "どうぐ",
+    "meaning": "උපකරණ"
+  },
+  {
+    "kanji": "～点",
+    "reading": "てん",
+    "meaning": "ලකුණු"
+  },
+  {
+    "kanji": "必要な",
+    "reading": "ひつような",
+    "meaning": "අවශ්‍ය"
+  },
+  {
+    "kanji": "借りる",
+    "reading": "かりる",
+    "meaning": "ණයට ගැනීම"
+  },
+  {
+    "kanji": "返す",
+    "reading": "かえす",
+    "meaning": "ආපසු දීම"
+  },
+  {
+    "kanji": "開く",
+    "reading": "あく",
+    "meaning": "(දොර) විවෘත වීම"
+  },
+  {
+    "kanji": "閉まる",
+    "reading": "しまる",
+    "meaning": "(දොර) වැසීම"
+  },
+  {
+    "kanji": "利用する",
+    "reading": "りようする",
+    "meaning": "භාවිතා කිරීම"
+  },
+  {
+    "kanji": "外国",
+    "reading": "がいこく",
+    "meaning": "විදේශ රට"
+  },
+  {
+    "kanji": "情報",
+    "reading": "じょうほう",
+    "meaning": "තොරතුරු"
+  },
+  {
+    "kanji": "相談",
+    "reading": "そうだん",
+    "meaning": "සාකච්ඡා කිරීම"
+  },
+  {
+    "kanji": "質問",
+    "reading": "しつもん",
+    "meaning": "ප්‍රශ්නය"
+  },
+  {
+    "kanji": "窓口",
+    "reading": "まどぐち",
+    "meaning": "කවුළුව / සේවා කවුළුව"
+  },
+  {
+    "kanji": "郵便局",
+    "reading": "ゆうびんきょく",
+    "meaning": "තැපැල් කාර්යාලය"
+  },
+  {
+    "kanji": "近所",
+    "reading": "きんじょ",
+    "meaning": "අසල්වැසි"
+  },
+  {
+    "kanji": "自動",
+    "reading": "じどう",
+    "meaning": "ස්වයංක්‍රීය"
+  },
+  {
+    "kanji": "洗う",
+    "reading": "あらう",
+    "meaning": "සෝදීම"
+  },
+  {
+    "kanji": "入力する",
+    "reading": "にゅうりょくする",
+    "meaning": "දත්ත ඇතුළු කිරීම"
+  },
+  {
+    "kanji": "温度",
+    "reading": "おんど",
+    "meaning": "උෂ්ණත්වය"
+  },
+  {
+    "kanji": "危険",
+    "reading": "きけん",
+    "meaning": "භයානක"
+  },
+  {
+    "kanji": "～種類",
+    "reading": "しゅるい",
+    "meaning": "වර්ගය"
+  },
+  {
+    "kanji": "消す",
+    "reading": "けす",
+    "meaning": "මකා දමනවා"
+  },
+  {
+    "kanji": "捨てる",
+    "reading": "すてる",
+    "meaning": "විසිකිරීම"
+  },
+  {
+    "kanji": "出す",
+    "reading": "だす",
+    "meaning": "ඉවත් කිරීම / යැවීම"
+  },
+  {
+    "kanji": "分ける",
+    "reading": "わける",
+    "meaning": "බෙදා ගැනීම"
+  },
+  {
+    "kanji": "燃える",
+    "reading": "もえる",
+    "meaning": "දහනය"
+  },
+  {
+    "kanji": "決める",
+    "reading": "きめる",
+    "meaning": "තීරණය කිරීම"
+  },
+  {
+    "kanji": "設定する",
+    "reading": "せっていする",
+    "meaning": "පිහිටුවීම"
+  },
+  {
+    "kanji": "地震",
+    "reading": "じしん",
+    "meaning": "භූමිකම්පාව"
+  },
+  {
+    "kanji": "台風",
+    "reading": "たいふう",
+    "meaning": "සුළි කුණාටුව"
+  },
+  {
+    "kanji": "外",
+    "reading": "そと",
+    "meaning": "පිටත"
+  },
+  {
+    "kanji": "声",
+    "reading": "こえ",
+    "meaning": "හඬ"
+  },
+  {
+    "kanji": "危ない",
+    "reading": "あぶない",
+    "meaning": "භයානක"
+  },
+  {
+    "kanji": "大切な",
+    "reading": "たいせつな",
+    "meaning": "වැදගත්"
+  },
+  {
+    "kanji": "心配な",
+    "reading": "しんぱいな",
+    "meaning": "කනගාටුදායක"
+  },
+  {
+    "kanji": "集まる",
+    "reading": "あつまる",
+    "meaning": "එකතු වීම"
+  },
+  {
+    "kanji": "進む",
+    "reading": "すすむ",
+    "meaning": "ඉදිරියට යාම"
+  },
+  {
+    "kanji": "最近",
+    "reading": "さいきん",
+    "meaning": "මෑතකදී"
+  },
+  {
+    "kanji": "授業",
+    "reading": "じゅぎょう",
+    "meaning": "පාඩම"
+  },
+  {
+    "kanji": "問題",
+    "reading": "もんだい",
+    "meaning": "ගැටලුව"
+  },
+  {
+    "kanji": "大変な",
+    "reading": "たいへんな",
+    "meaning": "අමාරු"
+  },
+  {
+    "kanji": "困る",
+    "reading": "こまる",
+    "meaning": "කරදරයට පත් වීම"
+  },
+  {
+    "kanji": "違う",
+    "reading": "ちがう",
+    "meaning": "වෙනස් වීම"
+  },
+  {
+    "kanji": "慣れる",
+    "reading": "なれる",
+    "meaning": "හුරු වීම"
+  },
+  {
+    "kanji": "増える",
+    "reading": "ふえる",
+    "meaning": "වැඩි වීම"
+  },
+  {
+    "kanji": "笑う",
+    "reading": "わらう",
+    "meaning": "සිනහව"
+  },
+  {
+    "kanji": "苦労する",
+    "reading": "くろうする",
+    "meaning": "දුෂ්කරතාවට මුහුණ දීම"
+  },
+  {
+    "kanji": "希望",
+    "reading": "きぼう",
+    "meaning": "අපේක්ෂාව"
+  },
+  {
+    "kanji": "募集",
+    "reading": "ぼしゅう",
+    "meaning": "අයදුම් කිරීම / බඳවා ගැනීම"
+  },
+  {
+    "kanji": "特に",
+    "reading": "とくに",
+    "meaning": "විශේෂයෙන්"
+  },
+  {
+    "kanji": "住む",
+    "reading": "すむ",
+    "meaning": "ජීවත් වීම"
+  },
+  {
+    "kanji": "建てる",
+    "reading": "たてる",
+    "meaning": "ගොඩනැගීම"
+  },
+  {
+    "kanji": "続ける",
+    "reading": "つづける",
+    "meaning": "දිගටම කරගෙන යාම"
+  },
+  {
+    "kanji": "考える",
+    "reading": "かんがえる",
+    "meaning": "සිතීම / කල්පනා කිරීම"
+  },
+  {
+    "kanji": "役に立つ",
+    "reading": "やくにたつ",
+    "meaning": "ප්‍රයෝජනවත් වීම"
+  },
+  {
+    "kanji": "卒業する",
+    "reading": "そつぎょうする",
+    "meaning": "උපාධිය ලබා ගැනීම"
+  },
+  {
+    "kanji": "留学する",
+    "reading": "りゅうがくする",
+    "meaning": "විදේශ අධ්‍යාපනය කිරීම"
+  }
 ];
 
-let kanjiSubMode = 'list'; // 'list' | 'exam'
+let kanjiSubMode = 'list'; // 'list' | 'mcq'
 let examOrder = [];
 let examIndex = 0;
 let examAnswers = {};
@@ -1940,15 +2727,22 @@ function initKanjiMcq(){
 
 function buildKanjiMcqOptions(entryIdx){
   const entry = kanjiExamData[entryIdx];
-  const correctAns = entry.reading || entry.meaning || '';
+  // Full display text: hiragana - sinhala
+  const makeLabel = (e) => {
+    const r = e.reading || '';
+    const m = e.meaning || '';
+    if(r && m) return r + ' - ' + m;
+    return r || m || '';
+  };
+  const correctLabel = makeLabel(entry);
   let pool = [];
   kanjiExamData.forEach((e, i)=>{
     if(i === entryIdx) return;
-    const ans = e.reading || e.meaning || '';
-    if(ans && ans !== correctAns) pool.push(ans);
+    const label = makeLabel(e);
+    if(label && label !== correctLabel) pool.push(label);
   });
   pool = shuffleArray(pool);
-  const seen = new Set([correctAns]);
+  const seen = new Set([correctLabel]);
   const distractors = [];
   for(const r of pool){
     if(seen.has(r)) continue;
@@ -1956,8 +2750,8 @@ function buildKanjiMcqOptions(entryIdx){
     distractors.push(r);
     if(distractors.length === 3) break;
   }
-  const options = shuffleArray([correctAns, ...distractors]);
-  const correctIdx = options.indexOf(correctAns);
+  const options = shuffleArray([correctLabel, ...distractors]);
+  const correctIdx = options.indexOf(correctLabel);
   return { options, correctIdx, selected: null };
 }
 
@@ -1983,8 +2777,9 @@ function renderKanjiMcqCard(container){
   const letters = ['A','B','C','D'];
   qState.options.forEach((opt, idx)=>{
     const btn = document.createElement('button');
-    btn.className = 'opt-btn jp';
-    btn.innerHTML = `<span class="opt-letter">${letters[idx]||(idx+1)}</span><span>${escapeHtml(opt)}</span>`;
+    btn.className = 'opt-btn';
+    btn.style.textAlign = 'left';
+    btn.innerHTML = `<span class="opt-letter">${letters[idx]||(idx+1)}</span><span class="jp">${escapeHtml(opt)}</span>`;
     if(qState.selected !== null){
       btn.disabled = true;
       if(idx === qState.correctIdx) btn.classList.add('correct');
@@ -2013,8 +2808,8 @@ function renderKanjiMcqCard(container){
     reveal.className = 'answer-reveal';
     reveal.innerHTML = `
       <div class="row">
-        <span class="label si">හරි උත්තරය</span>
-        <span class="jp-ans jp">${escapeHtml(qState.options[qState.correctIdx])}</span>
+        <span class="label si">හිරගනා (කියවීම)</span>
+        <span class="jp-ans jp">${escapeHtml(entry.reading || qState.options[qState.correctIdx])}</span>
       </div>
       <div class="row">
         <span class="label si">සිංහල තේරුම</span>
@@ -2121,7 +2916,6 @@ function renderKanjiMcq(container){
 
 function setKanjiSubMode(mode){
   kanjiSubMode = mode;
-  if(mode === 'exam' && examOrder.length === 0){ initKanjiExam(); }
   if(mode === 'mcq' && mcqOrder.length === 0){ initKanjiMcq(); }
   renderKanjiView();
 }
@@ -2136,24 +2930,17 @@ function renderKanjiView(){
   listBtn.className = 'kanji-subtab si' + (kanjiSubMode === 'list' ? ' active' : '');
   listBtn.textContent = '📋 List';
   listBtn.onclick = ()=> setKanjiSubMode('list');
-  const examBtn = document.createElement('button');
-  examBtn.className = 'kanji-subtab si' + (kanjiSubMode === 'exam' ? ' active' : '');
-  examBtn.textContent = '📝 Exam';
-  examBtn.onclick = ()=> setKanjiSubMode('exam');
 
   const mcqBtn = document.createElement('button');
   mcqBtn.className = 'kanji-subtab si' + (kanjiSubMode === 'mcq' ? ' active' : '');
-  mcqBtn.textContent = '🎯 4-Choice';
+  mcqBtn.textContent = '🎯 4-Choice (Book 3)';
   mcqBtn.onclick = ()=> setKanjiSubMode('mcq');
 
   subTabs.appendChild(listBtn);
-  subTabs.appendChild(examBtn);
   subTabs.appendChild(mcqBtn);
   view.appendChild(subTabs);
 
-  if(kanjiSubMode === 'exam'){
-    renderKanjiExam(view);
-  } else if(kanjiSubMode === 'mcq'){
+  if(kanjiSubMode === 'mcq'){
     renderKanjiMcq(view);
   } else {
     renderKanjiList(view);
