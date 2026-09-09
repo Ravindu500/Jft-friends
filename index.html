@@ -3035,7 +3035,7 @@ const test1DistractorPool = [
   "しずかな","にぎやかな","げんきな","ひまな","いそがしい","さむい","つめたい","からい"
 ];
 
-const T1_DURATION = 600; // 10 minutes, seconds
+const T1_DURATION = 480; // 8 minutes, seconds
 let t1State = null;
 
 function t1Reset(){
@@ -3105,7 +3105,7 @@ function renderTest1Start(container){
     <div class="emoji">🧪</div>
     <h2 class="si">Test1 — වචන පරීක්ෂණය</h2>
     <p class="si">සිංහල වචනයට හරියටම ගැලපෙන ජපන් වචනය (hiragana) හතරෙන් තෝරන්න.
-      ප්‍රශ්න ${test1VocabData.length}ක් තියෙනවා. වේලාව විනාඩි 10යි — ඉවර උනාම ඉබේම වහනවා, ඒ වෙනකොට කරලා තියෙන ලකුණු පෙන්නනවා.</p>
+      ප්‍රශ්න ${test1VocabData.length}ක් තියෙනවා. වේලාව විනාඩි 8යි — ඉවර උනාම ඉබේම වහනවා, ඒ වෙනකොට කරලා තියෙන ලකුණු පෙන්නනවා.</p>
   `;
   const btn = document.createElement('button');
   btn.className = 'exam-show-btn si';
@@ -3211,7 +3211,7 @@ function renderTest1Completion(container){
   if(t1State.autoClosed){
     const banner = document.createElement('div');
     banner.className = 't1-timeup-banner si';
-    banner.textContent = '⏰ විනාඩි 10 ඉවරයි! Test1 ඉබේම වහලා ලකුණු පෙන්නනවා.';
+    banner.textContent = '⏰ විනාඩි 8 ඉවරයි! Test1 ඉබේම වහලා ලකුණු පෙන්නනවා.';
     container.appendChild(banner);
   }
 
