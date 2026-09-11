@@ -515,35 +515,6 @@
   .exam-mark-btn.wrong{ color: var(--wrong); border-color: var(--wrong); }
   .exam-mark-btn.wrong:hover{ background: var(--wrong-bg); }
   .exam-restart-row{ display:flex; justify-content:center; margin-top: 14px; }
-
-  /* ---------- Test1 (timed exam) ---------- */
-  .t1-timerbar{
-    position: sticky; top: 8px; z-index: 5;
-    display:flex; align-items:center; justify-content:space-between; gap:10px;
-    background: var(--paper); border:1.5px solid var(--line); border-radius: 999px;
-    padding: 10px 16px; margin-bottom: 16px; box-shadow: var(--shadow);
-  }
-  .t1-timerbar .t1-clock{
-    font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size: 18px; color: var(--indigo-deep);
-    display:flex; align-items:center; gap:8px;
-  }
-  .t1-timerbar .t1-clock.low{ color: var(--wrong); animation: t1pulse 1s infinite; }
-  @keyframes t1pulse{ 0%,100%{opacity:1;} 50%{opacity:.45;} }
-  .t1-timerbar .t1-qcount{ font-size: 13px; font-weight:700; color: var(--muted); }
-  .t1-start-card{ text-align:center; }
-  .t1-start-card .emoji{ font-size: 54px; margin-bottom: 10px; }
-  .t1-start-card h2{ font-family:'Zen Maru Gothic',sans-serif; color: var(--indigo-deep); margin: 0 0 10px; font-size: 22px; }
-  .t1-start-card p{ color: var(--muted); font-size: 14.5px; line-height:1.7; margin: 0 0 22px; }
-  .t1-sinhala-q{
-    font-family:'Noto Sans Sinhala',sans-serif; font-weight:700; font-size: 20px;
-    color: var(--ink); line-height:1.6; text-align:center;
-    background: #FBF8FF; border:1px dashed #D8CFF5; border-radius:16px;
-    padding: 20px 16px; margin-bottom: 20px;
-  }
-  .t1-timeup-banner{
-    background: var(--wrong-bg); color:#A32B2B; border-radius: 14px;
-    padding: 12px 16px; font-weight:700; font-size: 14px; text-align:center; margin-bottom: 16px;
-  }
 </style>
 </head>
 <body>
@@ -554,7 +525,6 @@
     <button class="mode-tab active" id="tabQuiz">📝 Quiz Papers</button>
     <button class="mode-tab" id="tabReading">📖 Reading Notes</button>
     <button class="mode-tab" id="tabKanji">🈶 Kanji</button>
-    <button class="mode-tab" id="tabTest1">🧪 Test1</button>
   </div>
 
   <div id="quizView">
@@ -573,7 +543,6 @@
 
   <div id="readingView" style="display:none;"></div>
   <div id="kanjiView" style="display:none;"></div>
-  <div id="test1View" style="display:none;"></div>
 </div>
 
 <script>
@@ -2978,326 +2947,21 @@ function renderKanjiView(){
   }
 }
 
-/* ============ TEST1 (timed MCQ exam) ============
-   Vocabulary extracted from the uploaded "All Pictures JFT" PDF (34 items).
-   Wrong-answer choices are drawn from a hardcoded pool of other common
-   hiragana vocabulary (network access is unavailable in this environment,
-   so these are pulled from built-in vocabulary rather than a live web
-   lookup) plus the OTHER 33 correct readings from this same list, so the
-   options can genuinely look confusing, the way real exam distractors do.
-*/
-const test1VocabData = [
-  { si:"යතුර", reading:"かぎ" },
-  { si:"සංචාරකයන්ට මග පෙන්වීම (Tour guide)", reading:"あんないします" },
-  { si:"උද්‍යානය", reading:"こうえん" },
-  { si:"රවුම/ගෝලාකාර", reading:"まるい" },
-  { si:"මස් පුච්චනවා", reading:"やきます" },
-  { si:"තාත්තා", reading:"ちち" },
-  { si:"වැස්ස", reading:"あめ" },
-  { si:"එළකිරි", reading:"ぎゅうにゅう" },
-  { si:"විසි කර දමනවා", reading:"すてます" },
-  { si:"උණුසුම්", reading:"あつい" },
-  { si:"අපිරිසිදු වෙනවා", reading:"よごれます" },
-  { si:"පිහිනනවා", reading:"およぎます" },
-  { si:"දුම්රිය ස්ථානය", reading:"えき" },
-  { si:"සත්ව උද්‍යානය", reading:"どうぶつえん" },
-  { si:"කලිසම", reading:"ズボン" },
-  { si:"බස් රථය", reading:"バス" },
-  { si:"බැණ වදිනවා", reading:"しかります" },
-  { si:"උදව් ඉල්ලනවා", reading:"たすけます" },
-  { si:"ඇස", reading:"め" },
-  { si:"ලස්සන බෑගය", reading:"すてきな バッグ" },
-  { si:"කන", reading:"みみ" },
-  { si:"වැසිකිළිය", reading:"トイレ" },
-  { si:"කඩදාසිය", reading:"かみ" },
-  { si:"කෙනෙකුට හඳුන්වා දෙනවා", reading:"しょうかいします" },
-  { si:"කුණු ඉඩය", reading:"ごみばこ" },
-  { si:"අම්මා", reading:"おかあさん" },
-  { si:"විවාහය", reading:"けっこん" },
-  { si:"මල", reading:"はな" },
-  { si:"ශරීරය", reading:"からだ" },
-  { si:"ගෙදර/නිවස", reading:"いえ" },
-  { si:"ගුවන් යානය", reading:"ひこうき" },
-  { si:"කපනවා", reading:"きります" },
-  { si:"ටැප් එක වහනවා", reading:"しめます" },
-  { si:"සුපිරි වෙළඳසැල (කොන්බිනි)", reading:"コンビニ" }
-];
-const test1DistractorPool = [
-  "たべます","のみます","いきます","かいます","みます","ききます","はしります","あるきます",
-  "おきます","ねます","べんきょうします","はたらきます","かえります","でかけます","つかいます",
-  "もちます","すわります","たちます","はなします","かきます","よみます","おしえます","ならいます",
-  "てつだいます","まちます","とります","おくります","わすれます","おぼえます","きめます","つくります",
-  "うたいます","おどります","わらいます","なきます","おこります","つかれます","がっこう","びょういん",
-  "ぎんこう","ゆうびんきょく","としょかん","レストラン","スーパー","デパート","くうこう","かいしゃ",
-  "せんせい","がくせい","ともだち","かぞく","あに","あね","おとうと","いもうと","おじいさん",
-  "おばあさん","いぬ","ねこ","とり","さかな","くるま","じてんしゃ","でんしゃ","おとこ","こども",
-  "あたま","くち","はやい","おそい","たかい","やすい","ちいさい","おおきい","あかるい","くらい",
-  "しずかな","にぎやかな","げんきな","ひまな","いそがしい","さむい","つめたい","からい"
-];
-
-const T1_DURATION = 480; // 8 minutes, seconds
-let t1State = null;
-
-function t1Reset(){
-  const order = test1VocabData.map((_,i)=>i);
-  for(let i=order.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [order[i],order[j]]=[order[j],order[i]]; }
-  t1State = {
-    phase: 'start', // start | running | finished
-    order,
-    index: 0,
-    qStates: {}, // idx -> {options, correctIdx, selected}
-    timeLeft: T1_DURATION,
-    timerId: null,
-    autoClosed: false
-  };
-}
-
-function t1BuildOptions(vocabIdx){
-  const correct = test1VocabData[vocabIdx].reading;
-  const others = test1VocabData.filter((_,i)=>i!==vocabIdx).map(v=>v.reading);
-  const combinedPool = others.concat(test1DistractorPool);
-  const picked = new Set();
-  while(picked.size < 3 && picked.size < combinedPool.length){
-    const w = combinedPool[Math.floor(Math.random()*combinedPool.length)];
-    if(w !== correct) picked.add(w);
-  }
-  const options = Array.from(picked);
-  options.push(correct);
-  for(let i=options.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [options[i],options[j]]=[options[j],options[i]]; }
-  return { options, correctIdx: options.indexOf(correct), selected: null };
-}
-
-function t1FormatTime(sec){
-  const m = Math.floor(sec/60).toString().padStart(2,'0');
-  const s = Math.floor(sec%60).toString().padStart(2,'0');
-  return `${m}:${s}`;
-}
-
-function t1Start(){
-  t1Reset();
-  t1State.phase = 'running';
-  t1State.timerId = setInterval(t1Tick, 1000);
-  renderTest1View();
-}
-
-function t1Tick(){
-  if(!t1State || t1State.phase !== 'running') return;
-  t1State.timeLeft--;
-  if(t1State.timeLeft <= 0){
-    t1State.timeLeft = 0;
-    t1Finish(true);
-  }
-  renderTest1View();
-}
-
-function t1Finish(auto){
-  if(!t1State) return;
-  if(t1State.timerId){ clearInterval(t1State.timerId); t1State.timerId = null; }
-  t1State.phase = 'finished';
-  t1State.autoClosed = !!auto;
-  renderTest1View();
-}
-
-function renderTest1Start(container){
-  const card = document.createElement('div');
-  card.className = 'card t1-start-card';
-  card.innerHTML = `
-    <div class="emoji">🧪</div>
-    <h2 class="si">Test1 — වචන පරීක්ෂණය</h2>
-    <p class="si">සිංහල වචනයට හරියටම ගැලපෙන ජපන් වචනය (hiragana) හතරෙන් තෝරන්න.
-      ප්‍රශ්න ${test1VocabData.length}ක් තියෙනවා. වේලාව විනාඩි 8යි — ඉවර උනාම ඉබේම වහනවා, ඒ වෙනකොට කරලා තියෙන ලකුණු පෙන්නනවා.</p>
-  `;
-  const btn = document.createElement('button');
-  btn.className = 'exam-show-btn si';
-  btn.textContent = '▶️ Test1 පටන් ගමු';
-  btn.onclick = t1Start;
-  card.appendChild(btn);
-  container.appendChild(card);
-}
-
-function renderTest1Timerbar(container){
-  const bar = document.createElement('div');
-  bar.className = 't1-timerbar';
-  const low = t1State.timeLeft <= 60;
-  bar.innerHTML = `
-    <span class="t1-clock ${low?'low':''}">⏱️ ${t1FormatTime(t1State.timeLeft)}</span>
-    <span class="t1-qcount si">${t1State.index+1} / ${t1State.order.length}</span>
-  `;
-  container.appendChild(bar);
-}
-
-function renderTest1Card(container){
-  const pos = t1State.index;
-  const vocabIdx = t1State.order[pos];
-  const vocab = test1VocabData[vocabIdx];
-
-  if(!t1State.qStates[pos]){
-    t1State.qStates[pos] = t1BuildOptions(vocabIdx);
-  }
-  const qState = t1State.qStates[pos];
-
-  const card = document.createElement('div');
-  card.className = 'exam-card';
-  card.innerHTML = `<div class="exam-progress">Q ${pos+1} / ${t1State.order.length}</div>`;
-
-  const qBox = document.createElement('div');
-  qBox.className = 't1-sinhala-q';
-  qBox.textContent = vocab.si;
-  card.appendChild(qBox);
-
-  const optsWrap = document.createElement('div');
-  optsWrap.className = 'options';
-  const letters = ['A','B','C','D'];
-  qState.options.forEach((opt, idx)=>{
-    const btn = document.createElement('button');
-    btn.className = 'opt-btn';
-    btn.innerHTML = `<span class="opt-letter">${letters[idx]||(idx+1)}</span><span class="jp">${opt.replace(/</g,'&lt;')}</span>`;
-    if(qState.selected !== null){
-      btn.disabled = true;
-      if(idx === qState.correctIdx) btn.classList.add('correct');
-      if(idx === qState.selected && idx !== qState.correctIdx) btn.classList.add('wrong');
-    }
-    btn.onclick = ()=>{
-      if(qState.selected !== null || t1State.phase !== 'running') return;
-      qState.selected = idx;
-      renderTest1View();
-    };
-    optsWrap.appendChild(btn);
-  });
-  card.appendChild(optsWrap);
-
-  if(qState.selected !== null){
-    const isCorrect = qState.selected === qState.correctIdx;
-    const resultArea = document.createElement('div');
-    resultArea.className = 'result-area show';
-    const banner = document.createElement('div');
-    banner.className = 'result-banner ' + (isCorrect ? 'ok' : 'no') + ' si';
-    banner.textContent = isCorrect ? '✅ හරි උත්තරය!' : '❌ වැරදියි';
-    resultArea.appendChild(banner);
-    card.appendChild(resultArea);
-  }
-
-  container.appendChild(card);
-
-  if(qState.selected !== null){
-    const nav = document.createElement('div');
-    nav.className = 'nav-row';
-    nav.style.justifyContent = 'center';
-    const nextBtn = document.createElement('button');
-    nextBtn.className = 'nav-btn next si';
-    nextBtn.textContent = (pos === t1State.order.length - 1) ? 'ප්‍රතිඵල බලමු →' : 'ඊළඟ →';
-    nextBtn.onclick = ()=>{
-      if(pos === t1State.order.length - 1){ t1Finish(false); }
-      else { t1State.index++; renderTest1View(); }
-    };
-    nav.appendChild(nextBtn);
-    container.appendChild(nav);
-  }
-}
-
-function renderTest1Completion(container){
-  const total = t1State.order.length;
-  let correctCount = 0;
-  const wrongList = [];
-  t1State.order.forEach((vocabIdx, pos)=>{
-    const qState = t1State.qStates[pos];
-    if(qState && qState.selected !== null && qState.selected === qState.correctIdx){
-      correctCount++;
-    } else {
-      wrongList.push({ vocab: test1VocabData[vocabIdx], answered: qState && qState.selected !== null });
-    }
-  });
-
-  if(t1State.autoClosed){
-    const banner = document.createElement('div');
-    banner.className = 't1-timeup-banner si';
-    banner.textContent = '⏰ විනාඩි 8 ඉවරයි! Test1 ඉබේම වහලා ලකුණු පෙන්නනවා.';
-    container.appendChild(banner);
-  }
-
-  const card = document.createElement('div');
-  card.className = 'card complete-card';
-  card.innerHTML = `
-    <div class="emoji">${t1State.autoClosed ? '⏰' : '🎉'}</div>
-    <h2 class="si">Test1 ${t1State.autoClosed ? 'වේලාව ඉවරයි' : 'සම්පූර්ණයි'}!</h2>
-    <p class="si">ඔබ ප්‍රශ්න ${total}කින් උත්තර දුන්නා (කාලය ඉතිරි: ${t1FormatTime(t1State.timeLeft)}).</p>
-    <div class="score-pill">${correctCount} / ${total} correct</div>
-  `;
-  container.appendChild(card);
-
-  const restartRow = document.createElement('div');
-  restartRow.className = 'exam-restart-row';
-  const restartBtn = document.createElement('button');
-  restartBtn.className = 'restart-btn si';
-  restartBtn.textContent = '🔄 නැවත Test1 කරමු';
-  restartBtn.onclick = ()=>{ t1Reset(); renderTest1View(); };
-  restartRow.appendChild(restartBtn);
-  container.appendChild(restartRow);
-
-  const wrongSection = document.createElement('div');
-  wrongSection.className = 'review-section';
-  const head = document.createElement('div');
-  head.className = 'review-head';
-  head.innerHTML = `<div class="review-title si">❌ වැරදුණු / නොදුන් උත්තර (${wrongList.length})</div>`;
-  wrongSection.appendChild(head);
-
-  if(wrongList.length === 0){
-    const empty = document.createElement('div');
-    empty.className = 'review-empty si';
-    empty.textContent = '🎊 සියලුම ප්‍රශ්නවලට හරි උත්තර දීලා තියෙනවා!';
-    wrongSection.appendChild(empty);
-  } else {
-    const list = document.createElement('div');
-    list.className = 'review-list';
-    wrongList.forEach(w=>{
-      const item = document.createElement('div');
-      item.className = 'review-item wrong';
-      item.innerHTML = `
-        <div class="q-text si" style="font-size:16px;font-weight:700;">${w.vocab.si}${w.answered ? '' : ' <span style="font-weight:400;color:var(--muted);">(උත්තර දීලා නෑ)</span>'}</div>
-        <div class="row correct-ans si"><span class="tag">හරි උත්තරය</span><span class="jp">${w.vocab.reading}</span></div>
-      `;
-      list.appendChild(item);
-    });
-    wrongSection.appendChild(list);
-  }
-  container.appendChild(wrongSection);
-}
-
-function renderTest1View(){
-  const view = document.getElementById('test1View');
-  if(!view) return;
-  view.innerHTML = '';
-  if(!t1State){ t1Reset(); }
-
-  if(t1State.phase === 'start'){
-    renderTest1Start(view);
-  } else if(t1State.phase === 'running'){
-    renderTest1Timerbar(view);
-    renderTest1Card(view);
-  } else {
-    renderTest1Completion(view);
-  }
-}
-
 /* ============ MODE TOGGLE ============ */
 function setMode(mode){
   const quizView = document.getElementById('quizView');
   const readingView = document.getElementById('readingView');
   const kanjiView = document.getElementById('kanjiView');
-  const test1View = document.getElementById('test1View');
   const tabQuiz = document.getElementById('tabQuiz');
   const tabReading = document.getElementById('tabReading');
   const tabKanji = document.getElementById('tabKanji');
-  const tabTest1 = document.getElementById('tabTest1');
 
   quizView.style.display = 'none';
   readingView.style.display = 'none';
   kanjiView.style.display = 'none';
-  test1View.style.display = 'none';
   tabQuiz.classList.remove('active');
   tabReading.classList.remove('active');
   tabKanji.classList.remove('active');
-  tabTest1.classList.remove('active');
 
   if(mode === 'reading'){
     readingView.style.display = 'block';
@@ -3307,10 +2971,6 @@ function setMode(mode){
     kanjiView.style.display = 'block';
     tabKanji.classList.add('active');
     renderKanjiView();
-  } else if(mode === 'test1'){
-    test1View.style.display = 'block';
-    tabTest1.classList.add('active');
-    renderTest1View();
   } else {
     quizView.style.display = 'block';
     tabQuiz.classList.add('active');
@@ -3319,7 +2979,6 @@ function setMode(mode){
 document.getElementById('tabQuiz').onclick = ()=> setMode('quiz');
 document.getElementById('tabReading').onclick = ()=> setMode('reading');
 document.getElementById('tabKanji').onclick = ()=> setMode('kanji');
-document.getElementById('tabTest1').onclick = ()=> setMode('test1');
 
 /* ============ INIT ============ */
 renderPaperBar();
