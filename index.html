@@ -3505,16 +3505,105 @@ const epPapers = {
         ]
       }
     ]
+  },
+  "paper2": {
+    title: "📋 Paper 2 — こうえん (Kouen)",
+    sections: [
+      {
+        id: "pic_kanji",
+        name: "🖼️ Picture + 漢字",
+        nameSi: "පින්තුර + කන්ජි",
+        ptsEach: 2,
+        questions: [
+          { n:1, type:"pic", q:"これは 何ですか", imgSi:"කහ පාට බස් රථයක් ඉදිරිපස දොරෙන් කාන්තාවක් පඩිපෙළ මතින් බසිමින් සිටිනවා.", options:["おります","のります","あるきます"], correct:0 },
+          { n:2, type:"pic", q:"これは 誰ですか", imgSi:"පවුලක් — තාත්තා, අම්මා (ඊතලයෙන් පෙන්වන්නේ අම්මාව), පුතා සහ දුව සිටින චිත්‍රයක්.", options:["つま","おっと","むすこ"], correct:0 },
+          { n:3, type:"pic", q:"これは 何ですか", imgSi:"නගරයක උද්‍යානයක් — ගස්, බංකුවක්, ලාම්පුවක් සහ පසුබිමේ ගොඩනැගිලි පෙනේ.", options:["こうえん（公園）","がっこう","びょういん"], correct:0 },
+          { n:4, type:"pic", q:"どんな 形ですか", imgSi:"කාර් රෝදයක් (ටයරයක්) — රවුම් හැඩය පැහැදිලිව පෙන්වන පින්තූරයක්.", options:["まるい","しかくい","ながい"], correct:0 },
+          { n:5, type:"kanji", q:"近所のひとがたいひとです（近所の よみかたは？）", options:["きんじょ","きんじゃ","ちかしょ"], correct:0 },
+          { n:6, type:"kanji", q:"わからないとき、質問してください（質問の よみかたは？）", options:["しつもん","しちもん","しつぎ"], correct:0 },
+          { n:7, type:"kanji", q:"九月に 北海道へ りょこうします（九月の よみかたは？）", options:["くがつ","きゅうがつ","くげつ"], correct:0 }
+        ]
+      },
+      {
+        id: "grammar",
+        name: "💬 文法 Grammar",
+        nameSi: "ව්‍යාකරණ",
+        ptsEach: 5,
+        questions: [
+          { n:8, type:"kanji", q:"………を きます", options:["ふく","くつ","ぼうし"], correct:0 },
+          { n:9, type:"kanji", q:"牛肉は 好きですが、 魚は ______", options:["すきじゃないです","すきです","たべたいです"], correct:0 },
+          { n:10, type:"pic", q:"さかなを ______", imgSi:"කෙනෙකු සහ කෙනෙකියක් බාබකියු ග්‍රිල් එකක මාළු බදිනවා.", options:["やきます","たべます","つくります"], correct:0 },
+          { n:11, type:"kaiwa", lines:[{s:"男",t:"大丈夫ですか？手伝いましょうか？"},{s:"女",t:"______"}], imgSi:"කාන්තාවක් බර සූට්කේස් එකක් අදිමින්, දුක්බර මුහුණකින් සිටිනවා.", options:["ありがとうございます","いいえ、けっこうです","すみません"], correct:0 },
+          { n:12, type:"kanji", q:"夏は暑いので、うすいふくを ______", options:["きる","ぬぐ","あらう"], correct:0 },
+          { n:13, type:"kanji", q:"ごはんを たべた______ おなかが すいた。", options:["のに","から","ので"], correct:0 },
+          { n:14, type:"kanji", q:"今は______にいます。", options:["店","いえ","がっこう"], correct:0 },
+          { n:15, type:"kanji", q:"けんこうのために ...", options:["運動（うんどう）","たばこ","おさけ"], correct:0 },
+          { n:16, type:"kanji", q:"こどものとき ギターを ...", options:["ならいました","おしえました","かいました"], correct:0 },
+          { n:17, type:"pic", q:"今の天気はどうなりますか？", imgSi:"කුණාටුවක් (චණ්ඩ මාරුතයක්) නිවසක් විනාශ කරමින්, අකුණු සහිතව.", options:["台風（たいふう）","はれ","くもり"], correct:0 },
+          { n:18, type:"kaiwa", lines:[{s:"女",t:"すみません、れいぞうこがこわれたのですが…"},{s:"男",t:"とりあえず、チェックします。"},{s:"女",t:"はい、______"}], imgSi:"ශීතකරණයක් (fridge) එකක් පෙන්වයි.", options:["おねがいします","すみません","かまいません"], correct:0 },
+          { n:19, type:"kaiwa", lines:[{s:"男",t:"大丈夫ですか？手伝いましょうか？"},{s:"女",t:"______"}], imgSi:"පිරිමි කෙනෙක් සහ ගැහැණු කෙනෙක් පැළෑටියක් සහිත මැටි කුඩයක් රැගෙන සිටිනවා.", options:["ありがとうございます","いいえ、けっこうです","すみません"], correct:0 },
+          { n:20, type:"kaiwa", lines:[{s:"A",t:"日本語を どのくらい 勉強しましたか？"},{s:"B",t:"______ ぐらい、勉強しました。"}], options:["5か月（ごかげつ）","5にち","5しゅうかん"], correct:0 },
+          { n:21, type:"kaiwa", lines:[{s:"A",t:"パーティー 始まる前に、ケーキは たべ______です。"},{s:"B",t:"すみませんでした。"}], options:["ちゃだめ","てもいい","たほうがいい"], correct:0 },
+          { n:22, type:"kaiwa", lines:[{s:"A",t:"仕事はどうですか？"},{s:"B",t:"たいへん______勉強になります。"}], options:["ですが","なので","とき"], correct:0 },
+          { n:23, type:"kaiwa", lines:[{s:"A",t:"エリカ______"},{s:"B",t:"エリカさんですね。よろしくお願いします。"}], options:["とよんでください","とおもいます","とはなしました"], correct:0 },
+          { n:24, type:"kaiwa", lines:[{s:"A",t:"次の信号を右に曲がってください。……あ、______。ありがとうございました。"},{s:"B",t:"ここ？じゃあ、お疲れ様でした。また明日。"}], options:["あちらになります","ここです","そちらです"], correct:0 },
+          { n:25, type:"kaiwa", lines:[{s:"A",t:"今夜、おおきいたいふうがきますよ。川が近いから、心配ですね。"},{s:"B",t:"そうですね、夜は危ないから、______ひなんじょにいきます。"}], options:["はやめに","ゆっくり","あとで"], correct:0 },
+          { n:26, type:"kaiwa", lines:[{s:"A",t:"マヤさん、ジュースを買いに行きますけど、なにか______きましょうか？"},{s:"B",t:"あ、コーヒー、お願いします。"}], options:["買って","たべて","のんで"], correct:0 },
+          { n:27, type:"kaiwa", lines:[{s:"A",t:"「セーシバ」と「スギシタ」どっちが使いやすいですか？"},{s:"B",t:"「セーシバ」のほうが使いやすい______よ。"}], options:["と思います","とおもいません","といいました"], correct:0 },
+          { n:28, type:"kaiwa", lines:[{s:"A",t:"ケティーさん、からい料理が好きですか？"},{s:"B",t:"はい、好きです。______、カレーとか、キムチとか。"}], options:["たとえば","だから","でも"], correct:0 },
+          { n:29, type:"kaiwa", lines:[{s:"A",t:"新しい仕事はどうですか？"},{s:"B",t:"たいへんです、______ がんばります。"}], options:["でも","だから","そして"], correct:0 },
+          { n:30, type:"kanji", q:"ぎゅうにくは すきです。______、さかなは すきじゃないです", options:["でも","そして","それで"], correct:0 },
+          { n:31, type:"kanji", q:"おんなのひとが おもそうな かばんを もっています。おとこのひとが「だいじょうぶですか」と いいました。おんなのひとは なんと こたえましたか。", options:["おねがいします","だいじょうぶです","いいえ"], correct:0 },
+          { n:32, type:"kanji", q:"「セーシバ」と「スギシタ」どっちが使いやすいですか？「セーシバ」のほうが使いやすい________よ", options:["と思います","とおもいません","といいました"], correct:0 },
+          { n:33, type:"kaiwa", lines:[{s:"A",t:"今夜、おおきいたいふうがきますよ。川が近いから、心配ですね。"},{s:"B",t:"そうですね、夜は危ないから、______ ひなんじょにいきます。"}], options:["はやめに","ゆっくり","あとで"], correct:0 }
+        ]
+      },
+      {
+        id: "listening",
+        name: "🎧 Listening",
+        nameSi: "සවන්දීම",
+        ptsEach: 5,
+        questions: [
+          { n:1, type:"listen", script:"Ａ：すみません、えきは どこですか。\nＢ：この みちを まっすぐ いって、しんごうで ひだりに まがってください。ひだりがわに えきが あります。\nＡ：ありがとうございます。", q:"えきは どこに ありますか。", options:["しんごうで ひだりに まがった ひだりがわ","しんごうを みぎに まがった みぎがわ","まっすぐ いった さき"], correct:0 },
+          { n:2, type:"listen", script:"Ａ：こちらは わたしの こどもです。\nＢ：かわいいですね。おいくつですか。\nＡ：もうすぐ ５さいに なります。いまは ４さいです。\nＢ：そうですか。げんきそうですね。", q:"おんなのこは いま なんさいですか。", options:["４さい","３さい","５さい"], correct:0 },
+          { n:3, type:"listen", script:"きゃく：すみません、ちゅうもんを おねがいします。\nてんいん：はい、なにに なさいますか。\nきゃく：てんぷら ていしょくを ください。\nてんいん：てんぷら ていしょくは ごはんが つきます。よろしいですか。\nきゃく：はい、おねがいします。", q:"きゃくは なにを たのみましたか。", options:["てんぷら ていしょく（ごはんつき）","ラーメン","すしの セット"], correct:0 },
+          { n:4, type:"listen", script:"Ａ：こうえんへの いきかたを おしえてください。\nＢ：はい。この みちを まっすぐ いくと はしが あります。はしを わたって こうさてんを こえて、また まっすぐ いってください。そして ひだりに まがると いちばん おくに こうえんが あります。\nＡ：ありがとうございます。", q:"こうえんは どこに ありますか。", options:["まがって いちばん おく","はしの てまえ","こうさてんの となり"], correct:0 },
+          { n:5, type:"listen", script:"Ａ：たのんだ ものは もってきましたか。\nＢ：はい、あたらしい ペンを もってきました。\nＡ：ありがとうございます。なんぼん ですか。\nＢ：１０ぼん です。", q:"なにを なんぼん もってきましたか。", options:["あたらしい ペンを１０ぼん","あたらしい ペンを５ほん","あたらしい えんぴつを５ほん"], correct:0 },
+          { n:6, type:"listen", script:"Ａ：なぜ あきが すきですか。\nＢ：あきは くだものが おいしいから すきです。とくに りんごと なしが すきです。\nＡ：そうですね。あきは くだものが おおいですよね。", q:"おんなのひとは なぜ あきが すきですか。", options:["くだものが おいしいから","てんきが いいから","すずしいから"], correct:0 },
+          { n:7, type:"listen", script:"おしらせします。たいふうが ちかづいています。あんぜんの ために、みなさんは ひなんじょうに ひなんして ください。くわしくは しやくしょに といあわせください。", q:"なぜ ひなんしますか。また、どこへ いきますか。", options:["たいふうのため ひなんじょへ","じしんのため がっこうへ","かじのため こうえんへ"], correct:0 },
+          { n:8, type:"listen", script:"Ａ：がいこくじん むけの サービスは どこで うけられますか。\nＢ：あちらの あんないじょで おねがいします。つくえに ふたりの スタッフが います。\nＡ：ありがとうございます。トイレは どこですか。\nＢ：ほんやの となりに あります。", q:"トイレは どこに ありますか。", options:["ほんやの となり","あんないじょの まえ","にかいの おく"], correct:0 }
+        ]
+      },
+      {
+        id: "reading",
+        name: "📄 Reading",
+        nameSi: "කියවීම",
+        ptsEach: 5,
+        questions: [
+          { n:1, type:"read", passage:"アパートに ひっこすと、かんりにんから せんたくき と れいぞうこを もらいました。そのほかに タオルも いただきました。", q:"ただで もらったのは なんですか。", options:["タオル","せんたくき","れいぞうこ"], correct:0 },
+          { n:2, type:"read", passage:"インフルエンザに なると、まず 頭が いたくなります。そして ねつが でます。たくさん お茶を のんで やすんでください。くすりも のんでも いいです。", q:"インフルエンザに なると、からだの どこが いたいですか。", options:["あたま","おなか","せなか"], correct:0 },
+          { n:3, type:"read", passage:"インフルエンザに なると、まず 頭が いたくなります。そして ねつが でます。たくさん お茶を のんで やすんでください。くすりも のんでも いいです。", q:"インフルエンザの とき、なにを のむと いいですか。", options:["おちゃ","みず","ぎゅうにゅう"], correct:0 },
+          { n:4, type:"read", passage:"みどりの みせ\nえいぎょうじかん：ごぜん１０じ〜 ごご７じ\nじゃけっと：１２００えん\nれいぞうこ：２９０００えん（れいぞうこは 電気を あまり つかわない エコタイプです。）", q:"みせは なんじまで あいていますか。", options:["ごご７じ","ごぜん10じ","ごご５じ"], correct:0 },
+          { n:5, type:"read", passage:"みどりの みせ\nえいぎょうじかん：ごぜん１０じ〜 ごご７じ\nじゃけっと：１２００えん\nれいぞうこ：２９０００えん（れいぞうこは 電気を あまり つかわない エコタイプです。）", q:"じゃけっとの ねだんは いくらですか。", options:["１２００えん","２９０００えん","１２０００えん"], correct:0 },
+          { n:6, type:"read", passage:"みどりの みせ\nえいぎょうじかん：ごぜん１０じ〜 ごご７じ\nじゃけっと：１２００えん\nれいぞうこ：２９０００えん（れいぞうこは 電気を あまり つかわない エコタイプです。）", q:"れいぞうこの とくちょうは なんですか。", options:["でんきを あまり つかわない","おおきい","やすい"], correct:0 },
+          { n:7, type:"read", passage:"みどり ぎんこうは へいじつ ごぜん９じから ごご３じまで あいています。どようびは ごぜん９じから ごぜん１０じまでです。にちようびと しゅくじつは やすみです。", q:"どようびに みどりぎんこうへ いくなら、なんじまでに いかなければ なりませんか。", options:["ごぜん１０じ","ごご３じ","ごぜん９じ"], correct:0 },
+          { n:8, type:"read", passage:"きのう りょこうを しました。ごぜんちゅうは りょうかんで やすみました。ひるは みずみに いきました。とても きれいでした。いまは りょうかんに かえって います。", q:"ひるに なにを しましたか。", options:["みずみに いきました","りょうかんで やすみました","かいものに いきました"], correct:0 },
+          { n:9, type:"read", passage:"きのう りょこうを しました。ごぜんちゅうは りょうかんで やすみました。ひるは みずみに いきました。とても きれいでした。いまは りょうかんに かえって います。", q:"いまは どこに いますか。", options:["りょうかん","みずうみ","えき"], correct:0 },
+          { n:10, type:"read", passage:"さとうさんへ\nあした の かいぎに ついてです。かいぎは ごぜん１１じから はじまります。ばしょは ３かいの かいぎしつです。にちじは メールの したに かいてあります。よろしく おねがいします。\nたなか", q:"かいぎは なんじから はじまりますか。", options:["ごぜん１１じ","ごご１じ","ごぜん９じ"], correct:0 },
+          { n:11, type:"read", passage:"さとうさんへ\nあした の かいぎに ついてです。かいぎは ごぜん１１じから はじまります。ばしょは ３かいの かいぎしつです。にちじは メールの したに かいてあります。よろしく おねがいします。\nたなか", q:"にちじは どこに かいてありますか。", options:["メールの した","メールの うえ","でんわで"], correct:0 }
+        ]
+      }
+    ]
   }
 };
 
-// Compute max raw points
-function epMaxRaw(){
+function epMaxRaw(paperId){
+  const paper = epPapers[paperId];
+  if(!paper) return 0;
   let m = 0;
-  epPapers.paper1.sections.forEach(s => { m += s.questions.length * s.ptsEach; });
+  paper.sections.forEach(s => { m += s.questions.length * s.ptsEach; });
   return m;
 }
-const EP_MAX_RAW = epMaxRaw(); // should be 201
 
 let epState = null;
 let epSpeakUtter = null;
@@ -3524,20 +3613,24 @@ if('speechSynthesis' in window){
   window.speechSynthesis.onvoiceschanged = ()=> speechSynthesis.getVoices();
 }
 
-function epReset(){
+function epReset(paperId){
   if(epSpeakUtter){ try{ speechSynthesis.cancel(); }catch(e){} epSpeakUtter = null; }
-  const paper = epPapers.paper1;
+  const id = paperId || (epState && epState.paperId) || 'paper1';
   epState = {
-    phase: 'start', // start | running | finished
-    paperId: 'paper1',
+    phase: 'start', // select | start | running | finished
+    paperId: id,
     sectionIdx: 0,
     qIdx: 0,
-    answers: {}, // key: secIdx_qIdx -> selected option index
+    answers: {},
     timeLeft: EP_DURATION,
     timerId: null,
     autoClosed: false,
-    maxReachedSection: 0 // cannot go back past this once advanced
+    maxReachedSection: 0
   };
+}
+
+function epCurrentPaper(){
+  return epPapers[epState.paperId];
 }
 
 function epFormatTime(sec){
@@ -3547,7 +3640,8 @@ function epFormatTime(sec){
 }
 
 function epStart(){
-  epReset();
+  const id = epState ? epState.paperId : 'paper1';
+  epReset(id);
   epState.phase = 'running';
   epState.timerId = setInterval(epTick, 1000);
   renderExamView();
@@ -3655,7 +3749,7 @@ function epPlayListening(script, btn){
 }
 
 function epScore(){
-  const paper = epPapers.paper1;
+  const paper = epCurrentPaper();
   let raw = 0, max = 0;
   const wrong = [];
   paper.sections.forEach((sec, si)=>{
@@ -3678,9 +3772,13 @@ function renderExamView(){
   const view = document.getElementById('examView');
   if(!view) return;
   view.innerHTML = '';
-  if(!epState) epReset();
+  if(!epState){
+    epState = { phase: 'select', paperId: null, sectionIdx:0, qIdx:0, answers:{}, timeLeft:EP_DURATION, timerId:null, autoClosed:false, maxReachedSection:0 };
+  }
 
-  if(epState.phase === 'start'){
+  if(epState.phase === 'select' || !epState.paperId){
+    renderEpSelect(view);
+  } else if(epState.phase === 'start'){
     renderEpStart(view);
   } else if(epState.phase === 'running'){
     renderEpRunning(view);
@@ -3689,8 +3787,35 @@ function renderExamView(){
   }
 }
 
+function renderEpSelect(container){
+  const card = document.createElement('div');
+  card.className = 'card ep-start-card';
+  card.innerHTML = `
+    <div class="emoji">📋</div>
+    <h2 class="si">Exam Papers</h2>
+    <p class="si">පේපර් එකක් තෝරන්න</p>
+  `;
+  const list = document.createElement('div');
+  list.style.cssText = 'display:flex;flex-direction:column;gap:12px;margin-top:8px;';
+  Object.keys(epPapers).forEach(id=>{
+    const p = epPapers[id];
+    const btn = document.createElement('button');
+    btn.className = 'exam-show-btn si';
+    btn.style.width = '100%';
+    btn.textContent = p.title;
+    btn.onclick = ()=>{
+      epReset(id);
+      epState.phase = 'start';
+      renderExamView();
+    };
+    list.appendChild(btn);
+  });
+  card.appendChild(list);
+  container.appendChild(card);
+}
+
 function renderEpStart(container){
-  const paper = epPapers.paper1;
+  const paper = epCurrentPaper();
   const card = document.createElement('div');
   card.className = 'card ep-start-card';
   card.innerHTML = `
@@ -3703,14 +3828,20 @@ function renderEpStart(container){
   `;
   const btn = document.createElement('button');
   btn.className = 'exam-show-btn si';
-  btn.textContent = '▶️ Paper 1 පටන් ගමු';
+  btn.textContent = '▶️ ' + (paper.title || 'Paper') + ' පටන් ගමු';
   btn.onclick = epStart;
   card.appendChild(btn);
+  const back = document.createElement('button');
+  back.className = 'nav-btn prev si';
+  back.style.marginTop = '12px';
+  back.textContent = '← Papers list';
+  back.onclick = ()=>{ epState.phase = 'select'; epState.paperId = null; renderExamView(); };
+  card.appendChild(back);
   container.appendChild(card);
 }
 
 function renderEpRunning(container){
-  const paper = epPapers.paper1;
+  const paper = epCurrentPaper();
   const sec = paper.sections[epState.sectionIdx];
   const q = sec.questions[epState.qIdx];
   const totalInSec = sec.questions.length;
@@ -3903,7 +4034,13 @@ function renderEpFinish(container){
   const restartBtn = document.createElement('button');
   restartBtn.className = 'restart-btn si';
   restartBtn.textContent = '🔄 නැවත Paper 1 කරමු';
-  restartBtn.onclick = ()=>{ epReset(); renderExamView(); };
+  restartBtn.onclick = ()=>{ const id = epState.paperId; epReset(id); epState.phase = 'start'; renderExamView(); };
+  const listBtn = document.createElement('button');
+  listBtn.className = 'nav-btn prev si';
+  listBtn.style.marginLeft = '10px';
+  listBtn.textContent = '📋 Papers list';
+  listBtn.onclick = ()=>{ if(epState.timerId){ clearInterval(epState.timerId); } epState.phase = 'select'; epState.paperId = null; renderExamView(); };
+  restartRow.appendChild(listBtn);
   restartRow.appendChild(restartBtn);
   container.appendChild(restartRow);
 
