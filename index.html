@@ -515,6 +515,120 @@
   .exam-mark-btn.wrong{ color: var(--wrong); border-color: var(--wrong); }
   .exam-mark-btn.wrong:hover{ background: var(--wrong-bg); }
   .exam-restart-row{ display:flex; justify-content:center; margin-top: 14px; }
+
+  /* ---------- Test1 (timed exam) ---------- */
+  .t1-timerbar{
+    position: sticky; top: 8px; z-index: 5;
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    background: var(--paper); border:1.5px solid var(--line); border-radius: 999px;
+    padding: 10px 16px; margin-bottom: 16px; box-shadow: var(--shadow);
+  }
+  .t1-timerbar .t1-clock{
+    font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size: 18px; color: var(--indigo-deep);
+    display:flex; align-items:center; gap:8px;
+  }
+  .t1-timerbar .t1-clock.low{ color: var(--wrong); animation: t1pulse 1s infinite; }
+  @keyframes t1pulse{ 0%,100%{opacity:1;} 50%{opacity:.45;} }
+  .t1-timerbar .t1-qcount{ font-size: 13px; font-weight:700; color: var(--muted); }
+  .t1-start-card{ text-align:center; }
+  .t1-start-card .emoji{ font-size: 54px; margin-bottom: 10px; }
+  .t1-start-card h2{ font-family:'Zen Maru Gothic',sans-serif; color: var(--indigo-deep); margin: 0 0 10px; font-size: 22px; }
+  .t1-start-card p{ color: var(--muted); font-size: 14.5px; line-height:1.7; margin: 0 0 22px; }
+  .t1-sinhala-q{
+    font-family:'Noto Sans Sinhala',sans-serif; font-weight:700; font-size: 20px;
+    color: var(--ink); line-height:1.6; text-align:center;
+    background: #FBF8FF; border:1px dashed #D8CFF5; border-radius:16px;
+    padding: 20px 16px; margin-bottom: 20px;
+  }
+  .t1-timeup-banner{
+    background: var(--wrong-bg); color:#A32B2B; border-radius: 14px;
+    padding: 12px 16px; font-weight:700; font-size: 14px; text-align:center; margin-bottom: 16px;
+  }
+
+  /* ---------- Exam Papers ---------- */
+  .ep-section-tabs{
+    display:flex; gap:6px; margin-bottom:14px; flex-wrap:wrap;
+  }
+  .ep-sec-tab{
+    flex:1; min-width:70px; text-align:center;
+    font-family:'Zen Maru Gothic',sans-serif; font-weight:800; font-size:13px;
+    padding:10px 8px; border-radius:12px; border:1.5px solid var(--line);
+    background:var(--paper); color:var(--muted); cursor:default;
+  }
+  .ep-sec-tab.active{
+    background:linear-gradient(135deg,var(--indigo),var(--violet));
+    color:#fff; border-color:transparent; box-shadow:var(--shadow);
+  }
+  .ep-sec-tab.done{ background:#E7F8F1; color:#146B4B; border-color:#CDEBDD; }
+  .ep-sec-tab.locked{ opacity:.45; }
+  .ep-timerbar{
+    position:sticky; top:8px; z-index:5;
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    background:var(--paper); border:1.5px solid var(--line); border-radius:999px;
+    padding:10px 16px; margin-bottom:14px; box-shadow:var(--shadow);
+  }
+  .ep-timerbar .ep-clock{
+    font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:18px; color:var(--indigo-deep);
+  }
+  .ep-timerbar .ep-clock.low{ color:var(--wrong); animation:t1pulse 1s infinite; }
+  .ep-start-card{ text-align:center; }
+  .ep-start-card .emoji{ font-size:52px; margin-bottom:10px; }
+  .ep-start-card h2{ font-family:'Zen Maru Gothic',sans-serif; color:var(--indigo-deep); margin:0 0 8px; font-size:22px; }
+  .ep-start-card p{ color:var(--muted); font-size:14.5px; line-height:1.7; margin:0 0 18px; }
+  .ep-pts-info{
+    background:var(--lilac-bg); border:1px solid var(--line); border-radius:14px;
+    padding:12px 16px; font-size:13.5px; color:var(--indigo-deep); text-align:left; margin-bottom:18px; line-height:1.65;
+  }
+  .ep-pts-info strong{ color:var(--indigo); }
+  .ep-play-btn{
+    display:inline-flex; align-items:center; gap:8px;
+    background:linear-gradient(135deg,var(--indigo),var(--violet)); color:#fff;
+    border:none; font-weight:800; font-size:15px;
+    padding:12px 22px; border-radius:999px; cursor:pointer;
+    box-shadow:var(--shadow); margin-bottom:14px;
+  }
+  .ep-play-btn:hover{ filter:brightness(1.06); }
+  .ep-play-btn.playing{ background:var(--correct); }
+  .ep-listen-script{
+    display:none; background:#FBF8FF; border:1px dashed #D8CFF5; border-radius:14px;
+    padding:12px 14px; font-size:14px; color:var(--muted); margin-bottom:12px; line-height:1.6;
+  }
+  .ep-listen-script.show{ display:block; }
+  .ep-reading-pass{
+    background:#FBF8FF; border:1px solid var(--line); border-radius:16px;
+    padding:16px 18px; margin-bottom:16px;
+    font-family:'Noto Sans JP',sans-serif; font-size:15.5px; line-height:1.85; color:var(--ink);
+    max-height:340px; overflow-y:auto;
+  }
+  .ep-reading-pass.long{ font-size:14.5px; line-height:1.8; }
+  .ep-q-num{
+    font-weight:800; font-size:12.5px; color:var(--violet); letter-spacing:.04em;
+    text-transform:uppercase; margin-bottom:8px;
+  }
+  .ep-blank{
+    display:inline-block; min-width:48px; border-bottom:2.5px solid var(--indigo);
+    margin:0 3px; color:var(--indigo);
+  }
+  .ep-confirm-overlay{
+    position:fixed; inset:0; background:rgba(31,27,58,0.45); z-index:50;
+    display:flex; align-items:center; justify-content:center; padding:20px;
+  }
+  .ep-confirm-box{
+    background:var(--paper); border-radius:20px; padding:24px 22px; max-width:360px; width:100%;
+    box-shadow:0 20px 50px rgba(50,42,114,0.3); text-align:center;
+  }
+  .ep-confirm-box h3{ font-family:'Zen Maru Gothic',sans-serif; color:var(--indigo-deep); margin:0 0 10px; font-size:18px; }
+  .ep-confirm-box p{ color:var(--muted); font-size:14px; line-height:1.6; margin:0 0 18px; }
+  .ep-confirm-actions{ display:flex; gap:10px; }
+  .ep-confirm-actions button{ flex:1; padding:12px; border-radius:12px; font-weight:800; font-size:14px; cursor:pointer; border:none; }
+  .ep-confirm-stay{ background:var(--paper); color:var(--indigo); border:2px solid var(--line) !important; }
+  .ep-confirm-go{ background:linear-gradient(135deg,var(--indigo),var(--violet)); color:#fff; }
+  .ep-finish-row{ display:flex; justify-content:center; margin-top:16px; }
+  .ep-finish-btn{
+    background:var(--wrong); color:#fff; border:none; font-weight:800; font-size:15px;
+    padding:13px 26px; border-radius:14px; cursor:pointer; box-shadow:var(--shadow);
+  }
+
 </style>
 </head>
 <body>
@@ -525,6 +639,8 @@
     <button class="mode-tab active" id="tabQuiz">📝 Quiz Papers</button>
     <button class="mode-tab" id="tabReading">📖 Reading Notes</button>
     <button class="mode-tab" id="tabKanji">🈶 Kanji</button>
+    <button class="mode-tab" id="tabTest1">🧪 Test1</button>
+    <button class="mode-tab" id="tabExam">📋 Exam Papers</button>
   </div>
 
   <div id="quizView">
@@ -543,6 +659,8 @@
 
   <div id="readingView" style="display:none;"></div>
   <div id="kanjiView" style="display:none;"></div>
+  <div id="test1View" style="display:none;"></div>
+  <div id="examView" style="display:none;"></div>
 </div>
 
 <script>
@@ -2947,21 +3065,330 @@ function renderKanjiView(){
   }
 }
 
+/* ============ TEST1 (timed MCQ exam) ============
+   Vocabulary extracted from the uploaded "All Pictures JFT" PDF (34 items).
+   Wrong-answer choices are drawn from a hardcoded pool of other common
+   hiragana vocabulary (network access is unavailable in this environment,
+   so these are pulled from built-in vocabulary rather than a live web
+   lookup) plus the OTHER 33 correct readings from this same list, so the
+   options can genuinely look confusing, the way real exam distractors do.
+*/
+const test1VocabData = [
+  { si:"යතුර", reading:"かぎ" },
+  { si:"සංචාරකයන්ට මග පෙන්වීම (Tour guide)", reading:"あんないします" },
+  { si:"උද්‍යානය", reading:"こうえん" },
+  { si:"රවුම/ගෝලාකාර", reading:"まるい" },
+  { si:"මස් පුච්චනවා", reading:"やきます" },
+  { si:"තාත්තා", reading:"ちち" },
+  { si:"වැස්ස", reading:"あめ" },
+  { si:"එළකිරි", reading:"ぎゅうにゅう" },
+  { si:"විසි කර දමනවා", reading:"すてます" },
+  { si:"උණුසුම්", reading:"あつい" },
+  { si:"අපිරිසිදු වෙනවා", reading:"よごれます" },
+  { si:"පිහිනනවා", reading:"およぎます" },
+  { si:"දුම්රිය ස්ථානය", reading:"えき" },
+  { si:"සත්ව උද්‍යානය", reading:"どうぶつえん" },
+  { si:"කලිසම", reading:"ズボン" },
+  { si:"බස් රථය", reading:"バス" },
+  { si:"බැණ වදිනවා", reading:"しかります" },
+  { si:"උදව් ඉල්ලනවා", reading:"たすけます" },
+  { si:"ඇස", reading:"め" },
+  { si:"ලස්සන බෑගය", reading:"すてきな バッグ" },
+  { si:"කන", reading:"みみ" },
+  { si:"වැසිකිළිය", reading:"トイレ" },
+  { si:"කඩදාසිය", reading:"かみ" },
+  { si:"කෙනෙකුට හඳුන්වා දෙනවා", reading:"しょうかいします" },
+  { si:"කුණු ඉඩය", reading:"ごみばこ" },
+  { si:"අම්මා", reading:"おかあさん" },
+  { si:"විවාහය", reading:"けっこん" },
+  { si:"මල", reading:"はな" },
+  { si:"ශරීරය", reading:"からだ" },
+  { si:"ගෙදර/නිවස", reading:"いえ" },
+  { si:"ගුවන් යානය", reading:"ひこうき" },
+  { si:"කපනවා", reading:"きります" },
+  { si:"ටැප් එක වහනවා", reading:"しめます" },
+  { si:"සුපිරි වෙළඳසැල (කොන්බිනි)", reading:"コンビニ" }
+];
+const test1DistractorPool = [
+  "たべます","のみます","いきます","かいます","みます","ききます","はしります","あるきます",
+  "おきます","ねます","べんきょうします","はたらきます","かえります","でかけます","つかいます",
+  "もちます","すわります","たちます","はなします","かきます","よみます","おしえます","ならいます",
+  "てつだいます","まちます","とります","おくります","わすれます","おぼえます","きめます","つくります",
+  "うたいます","おどります","わらいます","なきます","おこります","つかれます","がっこう","びょういん",
+  "ぎんこう","ゆうびんきょく","としょかん","レストラン","スーパー","デパート","くうこう","かいしゃ",
+  "せんせい","がくせい","ともだち","かぞく","あに","あね","おとうと","いもうと","おじいさん",
+  "おばあさん","いぬ","ねこ","とり","さかな","くるま","じてんしゃ","でんしゃ","おとこ","こども",
+  "あたま","くち","はやい","おそい","たかい","やすい","ちいさい","おおきい","あかるい","くらい",
+  "しずかな","にぎやかな","げんきな","ひまな","いそがしい","さむい","つめたい","からい"
+];
+
+const T1_DURATION = 600; // 10 minutes, seconds
+let t1State = null;
+
+function t1Reset(){
+  const order = test1VocabData.map((_,i)=>i);
+  for(let i=order.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [order[i],order[j]]=[order[j],order[i]]; }
+  t1State = {
+    phase: 'start', // start | running | finished
+    order,
+    index: 0,
+    qStates: {}, // idx -> {options, correctIdx, selected}
+    timeLeft: T1_DURATION,
+    timerId: null,
+    autoClosed: false
+  };
+}
+
+function t1BuildOptions(vocabIdx){
+  const correct = test1VocabData[vocabIdx].reading;
+  const others = test1VocabData.filter((_,i)=>i!==vocabIdx).map(v=>v.reading);
+  const combinedPool = others.concat(test1DistractorPool);
+  const picked = new Set();
+  while(picked.size < 3 && picked.size < combinedPool.length){
+    const w = combinedPool[Math.floor(Math.random()*combinedPool.length)];
+    if(w !== correct) picked.add(w);
+  }
+  const options = Array.from(picked);
+  options.push(correct);
+  for(let i=options.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [options[i],options[j]]=[options[j],options[i]]; }
+  return { options, correctIdx: options.indexOf(correct), selected: null };
+}
+
+function t1FormatTime(sec){
+  const m = Math.floor(sec/60).toString().padStart(2,'0');
+  const s = Math.floor(sec%60).toString().padStart(2,'0');
+  return `${m}:${s}`;
+}
+
+function t1Start(){
+  t1Reset();
+  t1State.phase = 'running';
+  t1State.timerId = setInterval(t1Tick, 1000);
+  renderTest1View();
+}
+
+function t1Tick(){
+  if(!t1State || t1State.phase !== 'running') return;
+  t1State.timeLeft--;
+  if(t1State.timeLeft <= 0){
+    t1State.timeLeft = 0;
+    t1Finish(true);
+  }
+  renderTest1View();
+}
+
+function t1Finish(auto){
+  if(!t1State) return;
+  if(t1State.timerId){ clearInterval(t1State.timerId); t1State.timerId = null; }
+  t1State.phase = 'finished';
+  t1State.autoClosed = !!auto;
+  renderTest1View();
+}
+
+function renderTest1Start(container){
+  const card = document.createElement('div');
+  card.className = 'card t1-start-card';
+  card.innerHTML = `
+    <div class="emoji">🧪</div>
+    <h2 class="si">Test1 — වචන පරීක්ෂණය</h2>
+    <p class="si">සිංහල වචනයට හරියටම ගැලපෙන ජපන් වචනය (hiragana) හතරෙන් තෝරන්න.
+      ප්‍රශ්න ${test1VocabData.length}ක් තියෙනවා. වේලාව විනාඩි 10යි — ඉවර උනාම ඉබේම වහනවා, ඒ වෙනකොට කරලා තියෙන ලකුණු පෙන්නනවා.</p>
+  `;
+  const btn = document.createElement('button');
+  btn.className = 'exam-show-btn si';
+  btn.textContent = '▶️ Test1 පටන් ගමු';
+  btn.onclick = t1Start;
+  card.appendChild(btn);
+  container.appendChild(card);
+}
+
+function renderTest1Timerbar(container){
+  const bar = document.createElement('div');
+  bar.className = 't1-timerbar';
+  const low = t1State.timeLeft <= 60;
+  bar.innerHTML = `
+    <span class="t1-clock ${low?'low':''}">⏱️ ${t1FormatTime(t1State.timeLeft)}</span>
+    <span class="t1-qcount si">${t1State.index+1} / ${t1State.order.length}</span>
+  `;
+  container.appendChild(bar);
+}
+
+function renderTest1Card(container){
+  const pos = t1State.index;
+  const vocabIdx = t1State.order[pos];
+  const vocab = test1VocabData[vocabIdx];
+
+  if(!t1State.qStates[pos]){
+    t1State.qStates[pos] = t1BuildOptions(vocabIdx);
+  }
+  const qState = t1State.qStates[pos];
+
+  const card = document.createElement('div');
+  card.className = 'exam-card';
+  card.innerHTML = `<div class="exam-progress">Q ${pos+1} / ${t1State.order.length}</div>`;
+
+  const qBox = document.createElement('div');
+  qBox.className = 't1-sinhala-q';
+  qBox.textContent = vocab.si;
+  card.appendChild(qBox);
+
+  const optsWrap = document.createElement('div');
+  optsWrap.className = 'options';
+  const letters = ['A','B','C','D'];
+  qState.options.forEach((opt, idx)=>{
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn';
+    btn.innerHTML = `<span class="opt-letter">${letters[idx]||(idx+1)}</span><span class="jp">${opt.replace(/</g,'&lt;')}</span>`;
+    if(qState.selected !== null){
+      btn.disabled = true;
+      if(idx === qState.correctIdx) btn.classList.add('correct');
+      if(idx === qState.selected && idx !== qState.correctIdx) btn.classList.add('wrong');
+    }
+    btn.onclick = ()=>{
+      if(qState.selected !== null || t1State.phase !== 'running') return;
+      qState.selected = idx;
+      renderTest1View();
+    };
+    optsWrap.appendChild(btn);
+  });
+  card.appendChild(optsWrap);
+
+  if(qState.selected !== null){
+    const isCorrect = qState.selected === qState.correctIdx;
+    const resultArea = document.createElement('div');
+    resultArea.className = 'result-area show';
+    const banner = document.createElement('div');
+    banner.className = 'result-banner ' + (isCorrect ? 'ok' : 'no') + ' si';
+    banner.textContent = isCorrect ? '✅ හරි උත්තරය!' : '❌ වැරදියි';
+    resultArea.appendChild(banner);
+    card.appendChild(resultArea);
+  }
+
+  container.appendChild(card);
+
+  if(qState.selected !== null){
+    const nav = document.createElement('div');
+    nav.className = 'nav-row';
+    nav.style.justifyContent = 'center';
+    const nextBtn = document.createElement('button');
+    nextBtn.className = 'nav-btn next si';
+    nextBtn.textContent = (pos === t1State.order.length - 1) ? 'ප්‍රතිඵල බලමු →' : 'ඊළඟ →';
+    nextBtn.onclick = ()=>{
+      if(pos === t1State.order.length - 1){ t1Finish(false); }
+      else { t1State.index++; renderTest1View(); }
+    };
+    nav.appendChild(nextBtn);
+    container.appendChild(nav);
+  }
+}
+
+function renderTest1Completion(container){
+  const total = t1State.order.length;
+  let correctCount = 0;
+  const wrongList = [];
+  t1State.order.forEach((vocabIdx, pos)=>{
+    const qState = t1State.qStates[pos];
+    if(qState && qState.selected !== null && qState.selected === qState.correctIdx){
+      correctCount++;
+    } else {
+      wrongList.push({ vocab: test1VocabData[vocabIdx], answered: qState && qState.selected !== null });
+    }
+  });
+
+  if(t1State.autoClosed){
+    const banner = document.createElement('div');
+    banner.className = 't1-timeup-banner si';
+    banner.textContent = '⏰ විනාඩි 10 ඉවරයි! Test1 ඉබේම වහලා ලකුණු පෙන්නනවා.';
+    container.appendChild(banner);
+  }
+
+  const card = document.createElement('div');
+  card.className = 'card complete-card';
+  card.innerHTML = `
+    <div class="emoji">${t1State.autoClosed ? '⏰' : '🎉'}</div>
+    <h2 class="si">Test1 ${t1State.autoClosed ? 'වේලාව ඉවරයි' : 'සම්පූර්ණයි'}!</h2>
+    <p class="si">ඔබ ප්‍රශ්න ${total}කින් උත්තර දුන්නා (කාලය ඉතිරි: ${t1FormatTime(t1State.timeLeft)}).</p>
+    <div class="score-pill">${correctCount} / ${total} correct</div>
+  `;
+  container.appendChild(card);
+
+  const restartRow = document.createElement('div');
+  restartRow.className = 'exam-restart-row';
+  const restartBtn = document.createElement('button');
+  restartBtn.className = 'restart-btn si';
+  restartBtn.textContent = '🔄 නැවත Test1 කරමු';
+  restartBtn.onclick = ()=>{ t1Reset(); renderTest1View(); };
+  restartRow.appendChild(restartBtn);
+  container.appendChild(restartRow);
+
+  const wrongSection = document.createElement('div');
+  wrongSection.className = 'review-section';
+  const head = document.createElement('div');
+  head.className = 'review-head';
+  head.innerHTML = `<div class="review-title si">❌ වැරදුණු / නොදුන් උත්තර (${wrongList.length})</div>`;
+  wrongSection.appendChild(head);
+
+  if(wrongList.length === 0){
+    const empty = document.createElement('div');
+    empty.className = 'review-empty si';
+    empty.textContent = '🎊 සියලුම ප්‍රශ්නවලට හරි උත්තර දීලා තියෙනවා!';
+    wrongSection.appendChild(empty);
+  } else {
+    const list = document.createElement('div');
+    list.className = 'review-list';
+    wrongList.forEach(w=>{
+      const item = document.createElement('div');
+      item.className = 'review-item wrong';
+      item.innerHTML = `
+        <div class="q-text si" style="font-size:16px;font-weight:700;">${w.vocab.si}${w.answered ? '' : ' <span style="font-weight:400;color:var(--muted);">(උත්තර දීලා නෑ)</span>'}</div>
+        <div class="row correct-ans si"><span class="tag">හරි උත්තරය</span><span class="jp">${w.vocab.reading}</span></div>
+      `;
+      list.appendChild(item);
+    });
+    wrongSection.appendChild(list);
+  }
+  container.appendChild(wrongSection);
+}
+
+function renderTest1View(){
+  const view = document.getElementById('test1View');
+  if(!view) return;
+  view.innerHTML = '';
+  if(!t1State){ t1Reset(); }
+
+  if(t1State.phase === 'start'){
+    renderTest1Start(view);
+  } else if(t1State.phase === 'running'){
+    renderTest1Timerbar(view);
+    renderTest1Card(view);
+  } else {
+    renderTest1Completion(view);
+  }
+}
+
 /* ============ MODE TOGGLE ============ */
 function setMode(mode){
   const quizView = document.getElementById('quizView');
   const readingView = document.getElementById('readingView');
   const kanjiView = document.getElementById('kanjiView');
+  const test1View = document.getElementById('test1View');
+  const examView = document.getElementById('examView');
   const tabQuiz = document.getElementById('tabQuiz');
   const tabReading = document.getElementById('tabReading');
   const tabKanji = document.getElementById('tabKanji');
+  const tabTest1 = document.getElementById('tabTest1');
+  const tabExam = document.getElementById('tabExam');
 
   quizView.style.display = 'none';
   readingView.style.display = 'none';
   kanjiView.style.display = 'none';
+  test1View.style.display = 'none';
+  if(examView) examView.style.display = 'none';
   tabQuiz.classList.remove('active');
   tabReading.classList.remove('active');
   tabKanji.classList.remove('active');
+  tabTest1.classList.remove('active');
+  if(tabExam) tabExam.classList.remove('active');
 
   if(mode === 'reading'){
     readingView.style.display = 'block';
@@ -2971,6 +3398,14 @@ function setMode(mode){
     kanjiView.style.display = 'block';
     tabKanji.classList.add('active');
     renderKanjiView();
+  } else if(mode === 'test1'){
+    test1View.style.display = 'block';
+    tabTest1.classList.add('active');
+    renderTest1View();
+  } else if(mode === 'exam'){
+    if(examView) examView.style.display = 'block';
+    if(tabExam) tabExam.classList.add('active');
+    renderExamView();
   } else {
     quizView.style.display = 'block';
     tabQuiz.classList.add('active');
@@ -2979,6 +3414,535 @@ function setMode(mode){
 document.getElementById('tabQuiz').onclick = ()=> setMode('quiz');
 document.getElementById('tabReading').onclick = ()=> setMode('reading');
 document.getElementById('tabKanji').onclick = ()=> setMode('kanji');
+document.getElementById('tabTest1').onclick = ()=> setMode('test1');
+document.getElementById('tabExam').onclick = ()=> setMode('exam');
+
+
+/* ============ EXAM PAPERS — Paper 1 (Kagi) ============ */
+const EP_DURATION = 3600; // 1 hour
+const epPapers = {
+  "paper1": {
+    title: "📋 Paper 1 — かぎ (Kagi)",
+    sections: [
+      {
+        id: "pic_kanji",
+        name: "🖼️ Picture + 漢字",
+        nameSi: "පින්තුර + කන්ජි",
+        ptsEach: 2,
+        questions: [
+          { n:1, type:"pic", q:"これは 何ですか", imgSi:"යතුරු දෙකක් රින්ග් එකක ගැට ගැහිලා තියෙන ෆොටෝ එකක් (යතුරු මිටියක්)", options:["スマホ","かぎ","さいふ"], correct:1 },
+          { n:2, type:"pic", q:"（したの えを みて、なにを していますか）", imgSi:"මනාලියක් (සුදු ගවුමක්) සහ මනාලයෙක් (කෝට් සූට් එකක්) එකට හිටගෙන ඉන්නවා. මනාලිය අතේ මල් කලඹක් තියෙනවා", options:["びょういんへ いきます","けっこんしきを します","でんしゃに のります"], correct:1 },
+          { n:3, type:"pic", q:"（したの えを みて、なにを していますか）", imgSi:"කොළ පාට යුනිෆෝම් එකක් ඇඳන, රතු කොඩියක් අතේ තියාගෙන ඉන්න ආරක්ෂක නිලධාරියෙක් (traffic guard), ළමයි කිහිප දෙනෙක් එක්ක පාර හරහා ඇවිදගෙන යනවා (ළමයින්ව ආරක්ෂිතව රැගෙන යනවා)", options:["はなを かいます","ともだちを まちます","えきまで あんないします"], correct:2 },
+          { n:4, type:"kanji", q:"来年、日本へ いきます。（来年の よみかたは？）", options:["らいねん","らいにち","らいげつ"], correct:0 },
+          { n:5, type:"kanji", q:"ここに 住所を かいて ください", options:["じゅうしょ","じゅうじょ","しゅうしょ"], correct:0 },
+          { n:6, type:"kanji", q:"あと５分 まって ください。", options:["ごふん","ごぷん","ごぶん"], correct:0 },
+          { n:7, type:"kanji", q:"明日 友達と 映画を 見ます。", options:["テレビ","えいが","ざっし"], correct:1 },
+          { n:8, type:"kanji", q:"かっこいい ふくを もらって、うれしかったです。", options:["美しくて、すてきな","高くて、大きい","古くて、きたない"], correct:0 },
+          { n:9, type:"kanji", q:"イベントについて しらせます。", options:["たずねます","つたえます","わすれます"], correct:1 },
+          { n:10, type:"kanji", q:"体の ために、（　　）運動したり しています。", options:["歩いたり","走ったり","寝たり"], correct:0 },
+          { n:11, type:"kanji", q:"この カメラは、（　　）つかいやすいです。", options:["重くて","軽くて","高くて"], correct:1 },
+          { n:12, type:"kanji", q:"来月から テニスを（　　）みようと 思っています。", options:["始めて","終わって","休んで"], correct:0 },
+          { n:13, type:"pic", q:"「ここで（　　）。どうぞ。」", imgSi:"කොළ පාට ඇප්‍රොන් එකක් ඇඳගෙන ඉන්න කාන්තාවක්, දර පුටුවක් පිටිපස්සේ ඉඳගෙන, අතින් පුටුව පෙන්නනවා (ඉඳගන්න කියලා ආරාධනා කරනවා)", options:["立ってください","座ってください","待ってください"], correct:1 }
+        ]
+      },
+      {
+        id: "grammar",
+        name: "💬 文法 Grammar",
+        nameSi: "ව්‍යාකරණ",
+        ptsEach: 5,
+        questions: [
+          { n:14, type:"kaiwa", lines:[{s:"A",t:"もしもし、今 どこですか。"},{s:"B",t:"______。"}], options:["今、ゆうびんきょくに います","今、話して いません","今、勉強して いると おもいます"], correct:0 },
+          { n:15, type:"kaiwa", lines:[{s:"A",t:"きむさんは 英語が できますか。"},{s:"B",t:"______。"}], options:["はい、すこし 話せます","はい、英語が すきです","いいえ、きむさんは 友達です"], correct:0 },
+          { n:16, type:"kaiwa", lines:[{s:"A",t:"仕事は どうですか。"},{s:"B",t:"______。"}], options:["最近、仕事は 忙しくて 時間が ありません","はい、仕事は たのしい ひとです","いいえ、まだ 仕事を して いません"], correct:0 },
+          { n:17, type:"kaiwa", lines:[{s:"A",t:"今日の よる、みんなで えびの 料理を 食べに 行きます。きむさんも いっしょに どうですか。"},{s:"B",t:"______。"}], options:["アレルギーが あるので、えびは 食べられません","えびが すきなので、食べられません","昨日、えびを 食べて、テストを うけました"], correct:0 },
+          { n:18, type:"kaiwa", lines:[{s:"A",t:"あの、すみません。"},{s:"B",t:"はい、何ですか。"},{s:"A",t:"この漢字の読み方を教えてもらえませんか。"},{s:"B",t:"______。"}], options:["はい、いいですよ。これは「電車」と読みます","はい、好きな漢字は「山」です","いいえ、漢字は勉強しません"], correct:0 },
+          { n:19, type:"kaiwa", lines:[{s:"A",t:"どんな 本ですか。"},{s:"B",t:"______。"},{s:"A",t:"あ、青い 本の 表紙に 名前が 書いてありますね。"}], options:["青い 本で、名前が あります","これは 私の 本です","本の 上に えんぴつが あります"], correct:1 },
+          { n:20, type:"kaiwa", lines:[{s:"A",t:"いい天気ですね。"},{s:"B",t:"______。"}], imgSi:"හිරු බැබලෙනවා, ඒත් ලොකු වළාකුළක් හිරු ඉස්සරහ තියෙනවා (ටිකක් වළාකුළු සහිත කාලගුණය)", options:["そうですね","いいえ、くもりです","きのうは 雨でした"], correct:1 },
+          { n:21, type:"kaiwa", lines:[{s:"A",t:"この後で みんなと 一緒に 行くんです。よかったら 一緒に 行きませんか。"},{s:"B",t:"______。"}], options:["はい、ぜひ いっしょに 行きたいです","いいえ、みんなは 行きます","はい、でも 今日は くるまです"], correct:0 },
+          { n:22, type:"kaiwa", lines:[{s:"A",t:"もしもし、イミさんですか。わたしは ぐちです。"},{s:"B",t:"______。"}], options:["ぐちさんですか。お久しぶりですね。お元気ですか","はい、イミさんは いません","いいえ、でんわは すきじゃないです"], correct:0 },
+          { n:23, type:"kaiwa", lines:[{s:"A",t:"あの、すみません。今のアナウンスは なんと言っていましたか。"},{s:"B",t:"______。"}], options:["はい、あたらしい 本です","「でんしゃが １０分 おくれます」と 言っていました","アナウンスは にんきが あります"], correct:1 },
+          { n:24, type:"kaiwa", lines:[{s:"A",t:"______。"},{s:"B",t:"すみません。こんどから 気をつけます。"}], options:["これは あなたの ノートです","いっしょに 昼ごはんを 食べませんか","また 遅れたの？なんども 言ったでしょ！"], correct:2 }
+        ]
+      },
+      {
+        id: "listening",
+        name: "🎧 Listening",
+        nameSi: "සවන්දීම",
+        ptsEach: 5,
+        questions: [
+          { n:25, type:"listen", script:"A：もしもし、たなかさん？いま じかん だいじょうぶですか。\nB：はい、だいじょうぶですよ。どうしましたか。\nA：きょうの あさごはん、なにを たべましたか。\nB：パンと たまごを たべました。コーヒーも のみましたよ。\nA：いいですね。わたしは まだ なにも たべていません。", q:"Bさんは きょうの あさ、なにを たべましたか。", options:["ごはんと みそしる","パンと たまご","パンと さかな"], correct:1 },
+          { n:26, type:"listen", script:"A：いまの 天気は どうですか。そちらは あめですか。\nB：いいえ、こっちは はれですよ。そらが あおくて、とても いい天気です。\nA：それは よかったですね。", q:"いまの 天気は どうですか。", options:["あめです","くもりです","はれです"], correct:2 },
+          { n:27, type:"listen", script:"先生：ページ120を ひらいて、もんだい３を よんでください。\n山田さん：すみません、先生。今、何ページですか？", q:"山田さんは どうしましたか。", options:["先生の話を 聞いて、すぐ ページを ひらきました","先生の話を よく 聞こえなかったので、もういちど ききました","ノートに もんだい３の こたえを かきました"], correct:1 },
+          { n:28, type:"listen", script:"A：いつも げんきそうですね。なにか していますか？\nB：はい、けんこうの ために、まいあさ ヨガを しています。すこし うんどうするだけで きもちも よくなりますよ。", q:"Bさんは けんこうの ために なにを していますか。", options:["ヨガを しています","さんぽに いきます","ジムで べんきょう しています"], correct:0 },
+          { n:29, type:"listen", script:"A：すみません、この本を かりたいんですが、どのくらい かりられますか。\nB：はい、その本は ３週間かりられます。でも、まいしゅう 水曜日までに かえしてください。\nA：なるほど。３週間ですね。何さつまで かりられますか。\nB：１人 ５さつまでです。", q:"Aさんは 本を 何週間 かりることが できますか。", options:["２しゅうかん","３しゅうかん","５しゅうかん"], correct:1 },
+          { n:30, type:"listen", script:"A：すみません、このお店は 土曜日のよる、なんじまで やっていますか。\nB：土曜日は すこし おそくまで やっています。午後10時までです。\nA：そうですか。じゃあ、仕事のあとでも だいじょうぶですね。", q:"土曜日の よる、お店は 何時まで あいていますか。", options:["午後７時まで","午後８時まで","午後１０時まで"], correct:2 },
+          { n:31, type:"listen", script:"A：あ、さくらさん。これから どこへ 行くんですか。\nB：駅まで 行きます。\nA：そうですか。何で 行きますか。\nB：今日は 荷物が あるので、バスで 行きます。", q:"さくらさんは 何で 駅へ 行きますか。", options:["でんしゃ","くるま","バス"], correct:2 },
+          { n:32, type:"listen", script:"A：たなかさん、夏休みは いつから ですか。\nB：7月24日から です。\nA：そうですか。どこへ 行きますか。\nB：友だちと 京都へ 行きます。", q:"夏休みは いつから ですか。", options:["7月20日","7月24日","8月2日"], correct:1 },
+          { n:33, type:"listen", script:"A：こんにちは。いま、何をしているんですか。\nB：これから 体育館の中を そうじします。このそうじきで ゆかを きれいにします。\nA：あ、その そうじき、いいですね。どこで 買えますか。\nB：うちの スポーツセンターの ショップで 売っています。でも、電話での 注文は できません。", q:"Bさんは これから 何を しますか。", options:["スポーツを します","そうじを します","電話を します"], correct:1 }
+        ]
+      },
+      {
+        id: "reading",
+        name: "📄 Reading",
+        nameSi: "කියවීම",
+        ptsEach: 5,
+        questions: [
+          { n:34, type:"read", passage:"わたしは ミンと もうします。3か月前から 日本の 大阪で くらしています。平日は 毎朝 9時から 日本語学校で べんきょうしています。クラスは とても たのしくて、先生も やさしいです。わたしの しゅみは 英語の 本を よむことです。とくに あおいカバーの 本を あつめています。先週の 火曜日、学校の 休み時間に 本を よんでいたら、クラスメートの ケンさんが 話しかけて きました。ケンさんも 英語が すきで、いっしょに 勉強することに なりました。こんどの 金曜日、学校の近くの カフェで 会って、本の話や べんきょうの しかたについて 話す よていです。", q:"ミンさんは いつから 大阪に すんでいますか。", options:["1か月前から","3か月前から","1年前から"], correct:1 },
+          { n:35, type:"read", passage:"はじめまして。わたしは チャンと もうします。ベトナムの ダナンから まいりました。日本に きてから、もう 半年に なります。いまは 東京の 日本語学校で べんきょうしています。わたしの しゅみは 読書です。とくに あおいカバーの 本が すきで、見つけると つい かってしまいます。毎週土曜日には、近くの 図書館へ 行って 新しい 本を さがします。先週の土曜日、図書館で 本を えらんでいたとき、となりにいた クラスメートの サトウさんに 会いました。サトウさんも 本が すきで、しばらく 本について 話しました。そのあと、駅前の カフェで コーヒーを 飲みながら、学校のことや しゅみのことを ゆっくり 話しました。", q:"チャンさんが すきなのは どんな 本ですか。", options:["赤いカバーの 本","青いカバーの 本","えいがの 本"], correct:1 },
+          { n:36, type:"read", passage:"はじめまして。わたしは チャンと もうします。ベトナムの ダナンから まいりました。日本に きてから、もう 半年に なります。いまは 東京の 日本語学校で べんきょうしています。わたしの しゅみは 読書です。とくに あおいカバーの 本が すきで、見つけると つい かってしまいます。毎週土曜日には、近くの 図書館へ 行って 新しい 本を さがします。先週の土曜日、図書館で 本を えらんでいたとき、となりにいた クラスメートの サトウさんに 会いました。サトウさんも 本が すきで、しばらく 本について 話しました。そのあと、駅前の カフェで コーヒーを 飲みながら、学校のことや しゅみのことを ゆっくり 話しました。", q:"チャンさんは サトウさんに どこで 会いましたか。", options:["カフェ","図書館","学校"], correct:1 },
+          { n:37, type:"read", passage:"せきが でるときに のむ くすり\nこのくすりは、かぜや アレルギーで せきが でるときに つかいます。のむまえに、必ず 説明書を よくよんでください。\nのみかた：1日3回、朝・昼・晩の 食事の前に、水か ぬるま湯といっしょに のんでください。のんだあとは、すぐに横に ならないでください。\nちゅうい：このくすりを のんだあとは、車やバイクの うんてんを しないでください。小学生以下の子どもには のませないでください。2週間以上 せきが つづくときは、医者に そうだんしてください。", q:"このくすりは どんなときに つかいますか。", options:["はなみずが でるとき","せきが でるとき","あたまが いたいとき"], correct:1 },
+          { n:38, type:"read", passage:"せきが でるときに のむ くすり\nこのくすりは、かぜや アレルギーで せきが でるときに つかいます。のむまえに、必ず 説明書を よくよんでください。\nのみかた：1日3回、朝・昼・晩の 食事の前に、水か ぬるま湯といっしょに のんでください。のんだあとは、すぐに横に ならないでください。\nちゅうい：このくすりを のんだあとは、車やバイクの うんてんを しないでください。小学生以下の子どもには のませないでください。2週間以上 せきが つづくときは、医者に そうだんしてください。", q:"このくすりは いつ のめば いいですか。", options:["食事の前に","食事のあとに","ねる前に"], correct:0 },
+          { n:39, type:"read", passage:"先週の 土曜日、友だちと 駅の近くにある イタリア料理の レストランへ 行きました。お店は とても きれいで、入ると すぐに 大きな にわが 見えました。にわには 花や木が たくさんあり、食事を しながら 景色を 楽しむことが できました。わたしは パスタと サラダを 注文しました。味は とても おいしかったですが、値段が やすくなかったです。パスタは1500円、サラダは800円でした。でも、スタッフの サービスも よくて、友だちと ゆっくり 楽しい 時間を すごせました。", q:"このレストランでは 何を することが できますか。", options:["プールで およぐこと","にわを 見ながら 食事すること","電車に のること"], correct:1 },
+          { n:40, type:"read", passage:"先週の 土曜日、友だちと 駅の近くにある イタリア料理の レストランへ 行きました。お店は とても きれいで、入ると すぐに 大きな にわが 見えました。にわには 花や木が たくさんあり、食事を しながら 景色を 楽しむことが できました。わたしは パスタと サラダを 注文しました。味は とても おいしかったですが、値段が やすくなかったです。パスタは1500円、サラダは800円でした。でも、スタッフの サービスも よくて、友だちと ゆっくり 楽しい 時間を すごせました。", q:"このレストランの スタッフは どうでしたか。", options:["親切でした","ふしんせつでした","いませんでした"], correct:0 },
+          { n:41, type:"read", passage:"この事務室では、書類を コピーすることが できます。コピーが できるのは、あさ9時から 午後1時までです。コピーしたあとは、できあがった紙を、入り口の となりの 机の上に おいてください。机の上には チラシや 白い紙も あります。", q:"コピーは 何時まで できますか。", options:["午後3時まで","午後1時まで","午後5時まで"], correct:1 },
+          { n:42, type:"read", passage:"この事務室では、書類を コピーすることが できます。コピーが できるのは、あさ9時から 午後1時までです。コピーしたあとは、できあがった紙を、入り口の となりの 机の上に おいてください。机の上には チラシや 白い紙も あります。", q:"コピーした紙は どこに おきますか。", options:["机の上","本棚の中","いすの上"], correct:0 },
+          { n:43, type:"read", passage:"カフェ・サクラ モーニングメニューのご案内\nモーニングセットは あさ7時から 午前11時30分まで ごよういしています。セットには トースト、ゆでたまご、サラダ、コーヒー（または紅茶）が ふくまれています。\n単品メニュー：コーヒー550円 / 紅茶500円 / トースト300円\nご注意：モーニングセットは 午前11時30分を すぎると ご注文いただけません。コーヒーは おかわりできます（＋200円）。店内は 禁煙です。", q:"モーニングセットは 何時まで 食べられますか。", options:["午前10時30分まで","午前11時30分まで","午後1時まで"], correct:1 },
+          { n:44, type:"read", passage:"カフェ・サクラ モーニングメニューのご案内\nモーニングセットは あさ7時から 午前11時30分まで ごよういしています。セットには トースト、ゆでたまご、サラダ、コーヒー（または紅茶）が ふくまれています。\n単品メニュー：コーヒー550円 / 紅茶500円 / トースト300円\nご注意：モーニングセットは 午前11時30分を すぎると ご注文いただけません。コーヒーは おかわりできます（＋200円）。店内は 禁煙です。", q:"コーヒーの ねだんは いくらですか。", options:["350円","500円","550円"], correct:2 },
+          { n:45, type:"read", passage:"ばにんかい（記念まつり）のおしらせ\nことしの ばにんかいは、町の50周年を おいわいするため、12月14日（土）に 行います。時間は 午後5時から 午後8時まで、場所は 市民ホールです。当日は、ステージでの音楽ライブや、こども向けのゲームコーナー、花火大会も あります。食べ物は 実行委員会で よういしますが、飲む物は 各自で お持ちください。会場は とても こんでいますので、車ではなく 徒歩か バスで おこしください。", q:"ばにんかいは いつ 行われますか。", options:["12月4日","12月14日","12月24日"], correct:1 },
+          { n:46, type:"read", passage:"ばにんかい（記念まつり）のおしらせ\nことしの ばにんかいは、町の50周年を おいわいするため、12月14日（土）に 行います。時間は 午後5時から 午後8時まで、場所は 市民ホールです。当日は、ステージでの音楽ライブや、こども向けのゲームコーナー、花火大会も あります。食べ物は 実行委員会で よういしますが、飲む物は 各自で お持ちください。会場は とても こんでいますので、車ではなく 徒歩か バスで おこしください。", q:"当日、何を 持っていく ひつようが ありますか。", options:["食べ物","飲む物","おかし"], correct:1 },
+          { n:47, type:"read", passage:"レストラン「みどり」では、しんせんな きせつりょうりが たべられます。野菜や魚は、すべて ちかくの 農家や漁港から とどけられたものです。ランチタイムは、午前11時から 午後1時まで ご利用いただけます。デザートやドリンクも ありますので、ぜひ おためしください。ただし、店内では ペットと いっしょに 食事することや、外から 食べ物や飲み物を 持ちこむこと、たばこを すうことは できません。", q:"このレストランで できることは なんですか。", options:["しんせんな 季節料理が 食べられる","ペットと いっしょに 食事する","外から 飲み物を 持ちこむ"], correct:0 },
+          { n:48, type:"read", passage:"レストラン「みどり」では、しんせんな きせつりょうりが たべられます。野菜や魚は、すべて ちかくの 農家や漁港から とどけられたものです。ランチタイムは、午前11時から 午後1時まで ご利用いただけます。デザートやドリンクも ありますので、ぜひ おためしください。ただし、店内では ペットと いっしょに 食事することや、外から 食べ物や飲み物を 持ちこむこと、たばこを すうことは できません。", q:"ランチタイムは 何時までですか。", options:["午後12時まで","午後1時まで","午後2時まで"], correct:1 }
+        ]
+      }
+    ]
+  }
+};
+
+// Compute max raw points
+function epMaxRaw(){
+  let m = 0;
+  epPapers.paper1.sections.forEach(s => { m += s.questions.length * s.ptsEach; });
+  return m;
+}
+const EP_MAX_RAW = epMaxRaw(); // should be 201
+
+let epState = null;
+let epSpeakUtter = null;
+// Preload voices for TTS
+if('speechSynthesis' in window){
+  speechSynthesis.getVoices();
+  window.speechSynthesis.onvoiceschanged = ()=> speechSynthesis.getVoices();
+}
+
+function epReset(){
+  if(epSpeakUtter){ try{ speechSynthesis.cancel(); }catch(e){} epSpeakUtter = null; }
+  const paper = epPapers.paper1;
+  epState = {
+    phase: 'start', // start | running | finished
+    paperId: 'paper1',
+    sectionIdx: 0,
+    qIdx: 0,
+    answers: {}, // key: secIdx_qIdx -> selected option index
+    timeLeft: EP_DURATION,
+    timerId: null,
+    autoClosed: false,
+    maxReachedSection: 0 // cannot go back past this once advanced
+  };
+}
+
+function epFormatTime(sec){
+  const m = Math.floor(sec/60).toString().padStart(2,'0');
+  const s = Math.floor(sec%60).toString().padStart(2,'0');
+  return m + ':' + s;
+}
+
+function epStart(){
+  epReset();
+  epState.phase = 'running';
+  epState.timerId = setInterval(epTick, 1000);
+  renderExamView();
+}
+
+function epTick(){
+  if(!epState || epState.phase !== 'running') return;
+  epState.timeLeft--;
+  if(epState.timeLeft <= 0){
+    epState.timeLeft = 0;
+    epFinish(true);
+    return;
+  }
+  // only update timer text if present
+  const clock = document.querySelector('.ep-clock');
+  if(clock){
+    clock.textContent = '⏱️ ' + epFormatTime(epState.timeLeft);
+    if(epState.timeLeft <= 60) clock.classList.add('low');
+  }
+}
+
+function epFinish(auto){
+  if(!epState) return;
+  if(epState.timerId){ clearInterval(epState.timerId); epState.timerId = null; }
+  if(epSpeakUtter){ try{ speechSynthesis.cancel(); }catch(e){} }
+  epState.phase = 'finished';
+  epState.autoClosed = !!auto;
+  renderExamView();
+}
+
+function epKey(si, qi){ return si + '_' + qi; }
+
+function epGetJaVoices(){
+  const voices = speechSynthesis.getVoices().filter(v => v.lang && v.lang.startsWith('ja'));
+  // Prefer distinct male/female if names hint gender
+  let female = voices.find(v => /female|woman|girl|kyoko|haruka|otom|nanami|zira/i.test(v.name));
+  let male = voices.find(v => /male|man|boy|ichiro|hiroshi|kenji|osamu|show/i.test(v.name));
+  if(!female && voices.length) female = voices[0];
+  if(!male){
+    male = voices.find(v => v !== female) || voices[0] || null;
+  }
+  return { female, male, all: voices };
+}
+
+function epPlayListening(script, btn){
+  if(!('speechSynthesis' in window)){
+    alert('මෙම බ්‍රවුසරයේ TTS support නැහැ. Chrome / Edge භාවිතා කරන්න.');
+    return;
+  }
+  try{ speechSynthesis.cancel(); }catch(e){}
+
+  // Split into speaker turns: "A：text" / "B：text" / "先生：text" etc.
+  const lines = script.split(/\n/).map(l => l.trim()).filter(Boolean);
+  const turns = [];
+  lines.forEach(line => {
+    const m = line.match(/^([A-Za-zぁ-んァ-ン一-龯]+)\s*[：:]\s*(.+)$/);
+    if(m){
+      turns.push({ speaker: m[1], text: m[2].trim() });
+    } else {
+      turns.push({ speaker: turns.length % 2 === 0 ? 'A' : 'B', text: line });
+    }
+  });
+  if(!turns.length){
+    turns.push({ speaker: 'A', text: script });
+  }
+
+  const { female, male } = epGetJaVoices();
+  // A / 男 / 先生 → lower pitch (male-ish); B / 女 / 山田 → higher pitch (female-ish)
+  function isMaleSpeaker(sp){
+    const s = (sp || '').toLowerCase();
+    if(/^[ab]$/i.test(sp)) return sp.toUpperCase() === 'A';
+    if(/男|先生|たなか|田中|いちろう|父/.test(sp)) return true;
+    if(/女|山田|さくら|母/.test(sp)) return false;
+    return false; // default B-side female
+  }
+
+  if(btn){ btn.classList.add('playing'); btn.textContent = '🔊 Playing…'; }
+
+  let i = 0;
+  function speakNext(){
+    if(i >= turns.length){
+      if(btn){ btn.classList.remove('playing'); btn.textContent = '🔊 Play again'; }
+      return;
+    }
+    const turn = turns[i++];
+    const u = new SpeechSynthesisUtterance(turn.text);
+    u.lang = 'ja-JP';
+    u.rate = 0.92;
+    const maleSide = isMaleSpeaker(turn.speaker);
+    if(maleSide){
+      u.pitch = 0.75;
+      if(male) u.voice = male;
+      else if(female) u.voice = female;
+    } else {
+      u.pitch = 1.25;
+      if(female) u.voice = female;
+      else if(male) u.voice = male;
+    }
+    u.onend = ()=> setTimeout(speakNext, 280);
+    u.onerror = ()=> setTimeout(speakNext, 100);
+    epSpeakUtter = u;
+    speechSynthesis.speak(u);
+  }
+  speakNext();
+}
+
+function epScore(){
+  const paper = epPapers.paper1;
+  let raw = 0, max = 0;
+  const wrong = [];
+  paper.sections.forEach((sec, si)=>{
+    sec.questions.forEach((q, qi)=>{
+      max += sec.ptsEach;
+      const key = epKey(si, qi);
+      const sel = epState.answers[key];
+      if(sel === q.correct){
+        raw += sec.ptsEach;
+      } else {
+        wrong.push({ sec, si, q, qi, selected: sel });
+      }
+    });
+  });
+  const scaled = Math.round((raw / max) * 250);
+  return { raw, max, scaled, wrong };
+}
+
+function renderExamView(){
+  const view = document.getElementById('examView');
+  if(!view) return;
+  view.innerHTML = '';
+  if(!epState) epReset();
+
+  if(epState.phase === 'start'){
+    renderEpStart(view);
+  } else if(epState.phase === 'running'){
+    renderEpRunning(view);
+  } else {
+    renderEpFinish(view);
+  }
+}
+
+function renderEpStart(container){
+  const paper = epPapers.paper1;
+  const card = document.createElement('div');
+  card.className = 'card ep-start-card';
+  card.innerHTML = `
+    <div class="emoji">📋</div>
+    <h2 class="si">${paper.title}</h2>
+    <p class="si" style="text-align:left; background:#FBF8FF; border:1px dashed #D8CFF5; border-radius:14px; padding:14px 16px; line-height:1.75;">
+      පේපරේ හැදුවේ Free sensei දුන්නු එකකින්. Listing වල රූප නෑ ඉතිම්. රූපේ මොකද්ද කියලා ජපන් වලින් තියෙනෙ.<br><br>
+      හොර කරන්න බෑ මැඩම් 🤨. පේපරේ බලන්නත් බෑ
+    </p>
+  `;
+  const btn = document.createElement('button');
+  btn.className = 'exam-show-btn si';
+  btn.textContent = '▶️ Paper 1 පටන් ගමු';
+  btn.onclick = epStart;
+  card.appendChild(btn);
+  container.appendChild(card);
+}
+
+function renderEpRunning(container){
+  const paper = epPapers.paper1;
+  const sec = paper.sections[epState.sectionIdx];
+  const q = sec.questions[epState.qIdx];
+  const totalInSec = sec.questions.length;
+
+  // Timer
+  const bar = document.createElement('div');
+  bar.className = 'ep-timerbar';
+  const low = epState.timeLeft <= 60;
+  bar.innerHTML = `
+    <span class="ep-clock ${low?'low':''}">⏱️ ${epFormatTime(epState.timeLeft)}</span>
+    <span class="t1-qcount si">${sec.nameSi} · ${epState.qIdx+1}/${totalInSec}</span>
+  `;
+  container.appendChild(bar);
+
+  // Section tabs (visual only — locked)
+  const tabs = document.createElement('div');
+  tabs.className = 'ep-section-tabs';
+  paper.sections.forEach((s, i)=>{
+    const t = document.createElement('div');
+    t.className = 'ep-sec-tab';
+    if(i === epState.sectionIdx) t.classList.add('active');
+    else if(i < epState.sectionIdx) t.classList.add('done');
+    else t.classList.add('locked');
+    t.textContent = (i+1) + '. ' + s.nameSi;
+    tabs.appendChild(t);
+  });
+  container.appendChild(tabs);
+
+  // Question card
+  const card = document.createElement('div');
+  card.className = 'card';
+  let inner = `<div class="ep-q-num">Q ${q.n} · ${sec.ptsEach} pts</div>`;
+
+  if(q.type === 'pic' || (q.imgSi && q.type !== 'listen')){
+    inner += `<div class="img-desc"><span class="label si">🖼️ පින්තුරය</span><span class="si">${escapeHtml(q.imgSi)}</span></div>`;
+  }
+  if(q.type === 'kaiwa' && q.lines){
+    inner += `<div class="kaiwa">`;
+    q.lines.forEach(ln=>{
+      const side = (ln.s === 'A' || ln.s === '男') ? 'left' : 'right';
+      const text = ln.t.replace('______', '<span class="ep-blank">&nbsp;&nbsp;&nbsp;&nbsp;</span>');
+      inner += `<div class="bubble-row ${side}"><div class="bubble"><span class="speaker">${escapeHtml(ln.s)}</span><span class="jp">${text}</span></div></div>`;
+    });
+    inner += `</div>`;
+  } else if(q.type === 'listen'){
+    inner += `<button class="ep-play-btn" id="epPlayBtn">🔊 Play listening</button>`;
+    inner += `<div class="ep-listen-script si" id="epScriptHint">🔊 Play බටන් එක එබුවම ජපන් කතාබස් එක අහන්න පුළුවන්. නැවතත් play කරන්න පුළුවන්.</div>`;
+    inner += `<div class="q-sentence jp" style="font-size:17px;margin-top:8px;">質問：${escapeHtml(q.q)}</div>`;
+  } else if(q.type === 'read'){
+    const longCls = (q.passage && q.passage.length > 280) ? ' long' : '';
+    inner += `<div class="ep-reading-pass${longCls} jp">${escapeHtml(q.passage).replace(/\n/g,'<br>')}</div>`;
+    inner += `<div class="q-sentence jp" style="font-size:17px;">質問：${escapeHtml(q.q)}</div>`;
+  } else {
+    // kanji / plain
+    inner += `<div class="q-sentence jp">${escapeHtml(q.q)}</div>`;
+  }
+
+  card.innerHTML = inner;
+
+  // Options
+  const optsWrap = document.createElement('div');
+  optsWrap.className = 'options';
+  const letters = ['A','B','C','D'];
+  const key = epKey(epState.sectionIdx, epState.qIdx);
+  const selected = epState.answers[key];
+  q.options.forEach((opt, idx)=>{
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn';
+    if(selected === idx){
+      btn.style.borderColor = 'var(--indigo)';
+      btn.style.background = '#FAF8FF';
+      btn.style.boxShadow = '0 0 0 2px rgba(75,63,158,0.15)';
+    }
+    btn.innerHTML = `<span class="opt-letter">${letters[idx]}</span><span class="jp">${escapeHtml(opt)}</span>`;
+    btn.onclick = ()=>{
+      epState.answers[key] = idx;
+      renderExamView();
+    };
+    optsWrap.appendChild(btn);
+  });
+  card.appendChild(optsWrap);
+  container.appendChild(card);
+
+  // Listening play binding
+  if(q.type === 'listen'){
+    const playBtn = document.getElementById('epPlayBtn');
+    if(playBtn){
+      playBtn.onclick = ()=> epPlayListening(q.script, playBtn);
+    }
+  }
+
+  // Nav
+  const nav = document.createElement('div');
+  nav.className = 'nav-row';
+  const prevBtn = document.createElement('button');
+  prevBtn.className = 'nav-btn prev si';
+  prevBtn.textContent = '← පෙර';
+  prevBtn.disabled = (epState.qIdx === 0);
+  prevBtn.onclick = ()=>{
+    if(epState.qIdx > 0){ epState.qIdx--; renderExamView(); }
+  };
+  nav.appendChild(prevBtn);
+
+  const nextBtn = document.createElement('button');
+  nextBtn.className = 'nav-btn next si';
+  const isLastInSec = epState.qIdx === totalInSec - 1;
+  const isLastSec = epState.sectionIdx === paper.sections.length - 1;
+  if(isLastInSec && isLastSec){
+    nextBtn.textContent = 'Finish →';
+  } else if(isLastInSec){
+    nextBtn.textContent = 'ඊළඟ Section →';
+  } else {
+    nextBtn.textContent = 'ඊළඟ →';
+  }
+  nextBtn.onclick = ()=>{
+    if(!isLastInSec){
+      epState.qIdx++;
+      renderExamView();
+      return;
+    }
+    if(isLastSec){
+      epFinish(false);
+      return;
+    }
+    // confirm leave section
+    showEpSectionConfirm(()=>{
+      epState.sectionIdx++;
+      epState.qIdx = 0;
+      epState.maxReachedSection = Math.max(epState.maxReachedSection, epState.sectionIdx);
+      renderExamView();
+    });
+  };
+  nav.appendChild(nextBtn);
+  container.appendChild(nav);
+
+  // Finish early button
+  const finRow = document.createElement('div');
+  finRow.className = 'ep-finish-row';
+  const finBtn = document.createElement('button');
+  finBtn.className = 'ep-finish-btn si';
+  finBtn.textContent = '🏁 Finish now';
+  finBtn.onclick = ()=>{
+    if(confirm('Exam එක දැන් අවසන් කරන්නද? ඉතිරි ප්‍රශ්න unanswered වෙයි.')){
+      epFinish(false);
+    }
+  };
+  finRow.appendChild(finBtn);
+  container.appendChild(finRow);
+}
+
+function showEpSectionConfirm(onGo){
+  const overlay = document.createElement('div');
+  overlay.className = 'ep-confirm-overlay';
+  overlay.innerHTML = `
+    <div class="ep-confirm-box">
+      <h3 class="si">ඊළඟ Section එකට යනවද?</h3>
+      <p class="si">ඔව් කිව්වොත් මේ section එකට ආපසු එන්න බෑ. මෙතනම ඉන්නද, නැත්නම් ඉදිරියට යන්නද?</p>
+      <div class="ep-confirm-actions">
+        <button class="ep-confirm-stay si" id="epStay">මෙතනම ඉන්න</button>
+        <button class="ep-confirm-go si" id="epGo">ඊළඟ Section →</button>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+  document.getElementById('epStay').onclick = ()=> overlay.remove();
+  document.getElementById('epGo').onclick = ()=>{ overlay.remove(); onGo(); };
+}
+
+function renderEpFinish(container){
+  const score = epScore();
+  if(epState.autoClosed){
+    const banner = document.createElement('div');
+    banner.className = 't1-timeup-banner si';
+    banner.textContent = '⏰ පැය 1 ඉවරයි! Exam එක ඉබේම වහලා ලකුණු පෙන්නනවා.';
+    container.appendChild(banner);
+  }
+  const card = document.createElement('div');
+  card.className = 'card complete-card';
+  card.innerHTML = `
+    <div class="emoji">${epState.autoClosed ? '⏰' : '🎉'}</div>
+    <h2 class="si">Paper 1 ${epState.autoClosed ? 'වේලාව ඉවරයි' : 'සම්පූර්ණයි'}!</h2>
+    <p class="si">Raw ලකුණු: <strong>${score.raw} / ${score.max}</strong><br>
+    250 scale: <strong>${score.scaled} / 250</strong><br>
+    කාලය ඉතිරි: ${epFormatTime(epState.timeLeft)}</p>
+    <div class="score-pill">${score.scaled} / 250</div>
+  `;
+  container.appendChild(card);
+
+  const restartRow = document.createElement('div');
+  restartRow.className = 'exam-restart-row';
+  const restartBtn = document.createElement('button');
+  restartBtn.className = 'restart-btn si';
+  restartBtn.textContent = '🔄 නැවත Paper 1 කරමු';
+  restartBtn.onclick = ()=>{ epReset(); renderExamView(); };
+  restartRow.appendChild(restartBtn);
+  container.appendChild(restartRow);
+
+  // Wrong review
+  const wrongSection = document.createElement('div');
+  wrongSection.className = 'review-section';
+  const head = document.createElement('div');
+  head.className = 'review-head';
+  head.innerHTML = `<div class="review-title si">❌ වැරදුණු / නොදුන් (${score.wrong.length})</div>`;
+  wrongSection.appendChild(head);
+
+  if(score.wrong.length === 0){
+    const empty = document.createElement('div');
+    empty.className = 'review-empty si';
+    empty.textContent = '🎊 සියලුම ප්‍රශ්නවලට හරි උත්තර දීලා තියෙනවා!';
+    wrongSection.appendChild(empty);
+  } else {
+    const list = document.createElement('div');
+    list.className = 'review-list';
+    score.wrong.forEach(w=>{
+      const item = document.createElement('div');
+      item.className = 'review-item wrong';
+      let qText = w.q.q || (w.q.lines ? w.q.lines.map(l=>l.s+': '+l.t).join(' / ') : '');
+      if(w.q.type === 'listen') qText = w.q.q;
+      if(w.q.type === 'read') qText = w.q.q;
+      const selTxt = (w.selected === undefined || w.selected === null) ? '(උත්තර දීලා නෑ)' : w.q.options[w.selected];
+      item.innerHTML = `
+        <div class="q-label">${w.sec.nameSi} · Q${w.q.n}</div>
+        <div class="q-text jp">${escapeHtml(qText)}</div>
+        <div class="row wrong-ans si"><span class="tag">ඔබේ උත්තරය</span><span class="jp">${escapeHtml(selTxt)}</span></div>
+        <div class="row correct-ans si"><span class="tag">හරි උත්තරය</span><span class="jp">${escapeHtml(w.q.options[w.q.correct])}</span></div>
+      `;
+      list.appendChild(item);
+    });
+    wrongSection.appendChild(list);
+  }
+  container.appendChild(wrongSection);
+}
+
 
 /* ============ INIT ============ */
 renderPaperBar();
