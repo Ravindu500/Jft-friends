@@ -32,7 +32,7 @@
     font-family:'Inter', 'Noto Sans Sinhala', sans-serif;
     color:var(--ink);
     min-height:100vh;
-    padding: 24px 16px 60px;
+    padding: 12px 16px 48px;
   }
   .jp{ font-family:'Noto Sans JP','Zen Maru Gothic',sans-serif; }
   .si{ font-family:'Noto Sans Sinhala', sans-serif; }
@@ -304,22 +304,49 @@
     .card{ padding: 20px 16px; }
   }
 
-  /* ---------- Mode tabs ---------- */
-  .mode-tabs{
-    display:flex; gap:8px; margin-bottom: 16px;
-    background: var(--paper); border: 1.5px solid var(--line);
-    border-radius: 999px; padding: 5px;
+  /* ---------- Mode dropdown (compact, less scroll) ---------- */
+  .top-bar{
+    position: sticky; top: 0; z-index: 20;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    background: rgba(245,243,252,0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 10px 0 12px;
+    margin-bottom: 14px;
+    border-bottom: 1px solid var(--line);
   }
-  .mode-tab{
-    flex:1; text-align:center;
-    font-family:'Zen Maru Gothic', sans-serif; font-weight:800; font-size: 14.5px;
-    padding: 10px 12px; border-radius: 999px; border:none; cursor:pointer;
-    background: transparent; color: var(--muted);
-    transition: all .18s ease;
+  .top-bar .app-title{ margin-bottom: 0; flex-shrink: 0; }
+  .mode-select-wrap{
+    position: relative; flex: 1; max-width: 280px; margin-left: auto;
   }
-  .mode-tab.active{
-    background: linear-gradient(135deg, var(--indigo), var(--violet));
-    color:#fff; box-shadow: var(--shadow);
+  .mode-select{
+    width: 100%;
+    appearance: none; -webkit-appearance: none;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: 800; font-size: 14.5px;
+    padding: 11px 40px 11px 16px;
+    border-radius: 999px;
+    border: 1.5px solid var(--line);
+    background: var(--paper);
+    color: var(--indigo-deep);
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: border-color .15s ease;
+  }
+  .mode-select:focus{
+    outline: none;
+    border-color: var(--indigo);
+  }
+  .mode-select-wrap::after{
+    content: "▾";
+    position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
+    font-size: 12px; color: var(--indigo); pointer-events: none;
+    font-weight: 900;
+  }
+  @media (max-width: 480px){
+    .top-bar{ flex-wrap: wrap; gap: 8px; }
+    .top-bar .app-title{ font-size: 18px; }
+    .mode-select-wrap{ max-width: 100%; width: 100%; }
   }
 
   /* ---------- Reading section ---------- */
@@ -633,14 +660,18 @@
 </head>
 <body>
 <div class="shell">
-  <div class="app-title"><span class="dot"></span>会話クイズ Kaiwa Quiz</div>
-
-  <div class="mode-tabs" id="modeTabs">
-    <button class="mode-tab active" id="tabQuiz">📝 Quiz Papers</button>
-    <button class="mode-tab" id="tabReading">📖 Reading Notes</button>
-    <button class="mode-tab" id="tabKanji">🈶 Kanji</button>
-    <button class="mode-tab" id="tabTest1">🧪 Test1</button>
-    <button class="mode-tab" id="tabExam">📋 Exam Papers</button>
+  <div class="top-bar">
+    <div class="app-title"><span class="dot"></span>会話クイズ Kaiwa Quiz</div>
+    <div class="mode-select-wrap">
+      <select class="mode-select" id="modeSelect" aria-label="Mode">
+        <option value="quiz">📝 Quiz Papers</option>
+        <option value="reading">📖 Reading Notes</option>
+        <option value="kanji">🈶 Kanji</option>
+        <option value="test1">🧪 Test1</option>
+        <option value="exam">📋 Exam Papers</option>
+        <option value="grammar">📚 Grammar</option>
+      </select>
+    </div>
   </div>
 
   <div id="quizView">
@@ -661,6 +692,7 @@
   <div id="kanjiView" style="display:none;"></div>
   <div id="test1View" style="display:none;"></div>
   <div id="examView" style="display:none;"></div>
+  <div id="grammarView" style="display:none;"></div>
 </div>
 
 <script>
@@ -3373,49 +3405,43 @@ function setMode(mode){
   const kanjiView = document.getElementById('kanjiView');
   const test1View = document.getElementById('test1View');
   const examView = document.getElementById('examView');
-  const tabQuiz = document.getElementById('tabQuiz');
-  const tabReading = document.getElementById('tabReading');
-  const tabKanji = document.getElementById('tabKanji');
-  const tabTest1 = document.getElementById('tabTest1');
-  const tabExam = document.getElementById('tabExam');
+  const grammarView = document.getElementById('grammarView');
+  const modeSelect = document.getElementById('modeSelect');
 
   quizView.style.display = 'none';
   readingView.style.display = 'none';
   kanjiView.style.display = 'none';
   test1View.style.display = 'none';
   if(examView) examView.style.display = 'none';
-  tabQuiz.classList.remove('active');
-  tabReading.classList.remove('active');
-  tabKanji.classList.remove('active');
-  tabTest1.classList.remove('active');
-  if(tabExam) tabExam.classList.remove('active');
+  if(grammarView) grammarView.style.display = 'none';
+
+  if(modeSelect && modeSelect.value !== mode){
+    modeSelect.value = mode;
+  }
 
   if(mode === 'reading'){
     readingView.style.display = 'block';
-    tabReading.classList.add('active');
     renderReading();
   } else if(mode === 'kanji'){
     kanjiView.style.display = 'block';
-    tabKanji.classList.add('active');
     renderKanjiView();
   } else if(mode === 'test1'){
     test1View.style.display = 'block';
-    tabTest1.classList.add('active');
     renderTest1View();
   } else if(mode === 'exam'){
     if(examView) examView.style.display = 'block';
-    if(tabExam) tabExam.classList.add('active');
     renderExamView();
+  } else if(mode === 'grammar'){
+    if(grammarView) grammarView.style.display = 'block';
+    renderGrammarView();
   } else {
     quizView.style.display = 'block';
-    tabQuiz.classList.add('active');
   }
 }
-document.getElementById('tabQuiz').onclick = ()=> setMode('quiz');
-document.getElementById('tabReading').onclick = ()=> setMode('reading');
-document.getElementById('tabKanji').onclick = ()=> setMode('kanji');
-document.getElementById('tabTest1').onclick = ()=> setMode('test1');
-document.getElementById('tabExam').onclick = ()=> setMode('exam');
+const modeSelectEl = document.getElementById('modeSelect');
+if(modeSelectEl){
+  modeSelectEl.addEventListener('change', ()=> setMode(modeSelectEl.value));
+}
 
 
 /* ============ EXAM PAPERS — Paper 1 (Kagi) ============ */
@@ -4072,6 +4098,436 @@ function renderEpFinish(container){
         <div class="q-text jp">${escapeHtml(qText)}</div>
         <div class="row wrong-ans si"><span class="tag">ඔබේ උත්තරය</span><span class="jp">${escapeHtml(selTxt)}</span></div>
         <div class="row correct-ans si"><span class="tag">හරි උත්තරය</span><span class="jp">${escapeHtml(w.q.options[w.q.correct])}</span></div>
+      `;
+      list.appendChild(item);
+    });
+    wrongSection.appendChild(list);
+  }
+  container.appendChild(wrongSection);
+}
+
+
+const grammarPapers = {
+  "gp1": {
+    title: "📚 Grammar Practice Paper 1 (Q1–50)",
+    questions: [
+      { n:1, lines:[{s:"A",t:"これは ＿＿＿ですか。"}, {s:"B",t:"わたしの かばんです。"}], options:["だれ", "なん", "どこ"], correct:1, theory:"これ + は + なんですか" },
+      { n:2, lines:[{s:"A",t:"＿＿＿から きましたか。"}, {s:"B",t:"スリランカから きました。"}], options:["どこ", "だれ", "いつ"], correct:0, theory:"どこから ～ますか" },
+      { n:3, lines:[{s:"A",t:"毎日 何を ＿＿＿か。"}, {s:"B",t:"日本語を べんきょうします。"}], options:["します", "しますか", "しました"], correct:1, theory:"何を + Verb + ますか" },
+      { n:4, lines:[{s:"A",t:"あした 学校へ ＿＿＿か。"}, {s:"B",t:"はい、いきます。"}], options:["いきます", "いきました", "いきませんでした"], correct:0, theory:"～へ 行きます" },
+      { n:5, lines:[{s:"A",t:"きのう 何を しましたか。"}, {s:"B",t:"映画を ＿＿＿。"}], options:["みます", "みました", "みません"], correct:1, theory:"過去形 ～ました" },
+      { n:6, lines:[{s:"A",t:"朝ごはんを ＿＿＿か。"}, {s:"B",t:"はい、たべました。"}], options:["たべます", "たべました", "たべませんでした"], correct:1, theory:"～ましたか" },
+      { n:7, lines:[{s:"A",t:"これは だれ ＿＿＿ かばんですか。"}, {s:"B",t:"田中さんの かばんです。"}], options:["が", "の", "を"], correct:1, theory:"N の N" },
+      { n:8, lines:[{s:"A",t:"日本語 ＿＿＿ 話しますか。"}, {s:"B",t:"はい、少し 話します。"}], options:["を", "が", "で"], correct:1, theory:"～が 話せます / 話します" },
+      { n:9, lines:[{s:"A",t:"学校 ＿＿＿ 日本語を べんきょうします。"}, {s:"B",t:"そうですか。"}], options:["で", "に", "を"], correct:0, theory:"Place + で + action" },
+      { n:10, lines:[{s:"A",t:"7時 ＿＿＿ おきますか。"}, {s:"B",t:"はい、7時に おきます。"}], options:["を", "に", "で"], correct:1, theory:"Time + に" },
+      { n:11, lines:[{s:"A",t:"日曜日 ＿＿＿ 仕事を しますか。"}, {s:"B",t:"いいえ、しません。"}], options:["に", "で", "を"], correct:0, theory:"Time/day + に" },
+      { n:12, lines:[{s:"A",t:"この へや ＿＿＿ だれが いますか。"}, {s:"B",t:"田中さんが います。"}], options:["に", "を", "へ"], correct:0, theory:"Place + に + います" },
+      { n:13, lines:[{s:"A",t:"つくえの 上 ＿＿＿ 本が あります。"}, {s:"B",t:"そうですか。"}], options:["に", "で", "を"], correct:0, theory:"Place + に + あります" },
+      { n:14, lines:[{s:"A",t:"毎朝 コーヒー ＿＿＿ 飲みますか。"}, {s:"B",t:"はい、飲みます。"}], options:["が", "を", "に"], correct:1, theory:"Object + を + Verb" },
+      { n:15, lines:[{s:"A",t:"だれ ＿＿＿ 学校へ いきますか。"}, {s:"B",t:"友だちと いきます。"}], options:["と", "で", "を"], correct:0, theory:"～と 一緒に" },
+      { n:16, lines:[{s:"A",t:"これは ＿＿＿ 本ですか。"}, {s:"B",t:"日本語の 本です。"}], options:["どの", "だれ", "どこ"], correct:0, theory:"どの + N" },
+      { n:17, lines:[{s:"A",t:"＿＿＿ 本が すきですか。"}, {s:"B",t:"この 本が すきです。"}], options:["どこ", "どの", "いつ"], correct:1, theory:"どの + N" },
+      { n:18, lines:[{s:"A",t:"この 町は ＿＿＿ ですか。"}, {s:"B",t:"しずかです。"}], options:["どう", "だれ", "いくつ"], correct:0, theory:"どうですか" },
+      { n:19, lines:[{s:"A",t:"日本語は ＿＿＿ ですか。"}, {s:"B",t:"はい、むずかしいです。"}], options:["どう", "どこ", "だれ"], correct:0, theory:"～は どうですか" },
+      { n:20, lines:[{s:"A",t:"この かばんは ＿＿＿ ですか。"}, {s:"B",t:"3000円です。"}], options:["いくら", "いくつ", "いつ"], correct:0, theory:"Price + いくら" },
+      { n:21, lines:[{s:"A",t:"りんごを ＿＿＿ かいましたか。"}, {s:"B",t:"3つ かいました。"}], options:["いくつ", "いくら", "どのくらい"], correct:0, theory:"Number + いくつ" },
+      { n:22, lines:[{s:"A",t:"日本語の べんきょうは ＿＿＿ ですか。"}, {s:"B",t:"とても おもしろいです。"}], options:["おもしろい", "おもしろく", "おもしろかった"], correct:0, theory:"い-adjective present" },
+      { n:23, lines:[{s:"A",t:"きのうは ＿＿＿ ですか。"}, {s:"B",t:"あまり さむくなかったです。"}], options:["さむい", "さむかった", "さむく"], correct:1, theory:"い-adjective past" },
+      { n:24, lines:[{s:"A",t:"この へやは ＿＿＿ ですか。"}, {s:"B",t:"いいえ、ひろくないです。"}], options:["ひろい", "ひろかった", "ひろく"], correct:0, theory:"い-adjective negative" },
+      { n:25, lines:[{s:"A",t:"この 店は ＿＿＿ ですか。"}, {s:"B",t:"はい、有名です。"}], options:["有名な", "有名です", "有名く"], correct:1, theory:"な-adjective + です" },
+      { n:26, lines:[{s:"A",t:"この 町は しずか ＿＿＿。"}, {s:"B",t:"はい、しずかです。"}], options:["です", "ます", "でしたか"], correct:0, theory:"な-adjective + です" },
+      { n:27, lines:[{s:"A",t:"きのうは ひま ＿＿＿。"}, {s:"B",t:"はい、ひまでした。"}], options:["でした", "です", "ます"], correct:0, theory:"な-adjective past" },
+      { n:28, lines:[{s:"A",t:"この 店は しずか ＿＿＿ ありません。"}, {s:"B",t:"そうですか。"}], options:["では", "く", "に"], correct:0, theory:"な-adjective negative" },
+      { n:29, lines:[{s:"A",t:"あした 何を ＿＿＿ ですか。"}, {s:"B",t:"映画を 見る つもりです。"}], options:["見ます", "見る", "見て"], correct:1, theory:"Dictionary form + つもりです" },
+      { n:30, lines:[{s:"A",t:"来週 日本へ 行く ＿＿＿ です。"}, {s:"B",t:"いいですね。"}], options:["よてい", "こと", "とき"], correct:0, theory:"Verb dictionary form + 予定です" },
+      { n:31, lines:[{s:"A",t:"日本へ 行った ＿＿＿ がありますか。"}, {s:"B",t:"はい、あります。"}], options:["こと", "もの", "ため"], correct:0, theory:"～たことがあります" },
+      { n:32, lines:[{s:"A",t:"ごはんを 食べ ＿＿＿、薬を 飲みます。"}, {s:"B",t:"わかりました。"}], options:["てから", "たから", "ないから"], correct:0, theory:"～てから" },
+      { n:33, lines:[{s:"A",t:"寝る ＿＿＿、歯を みがきます。"}, {s:"B",t:"そうしてください。"}], options:["まえに", "あとで", "から"], correct:0, theory:"Dictionary form + まえに" },
+      { n:34, lines:[{s:"A",t:"仕事の ＿＿＿、友だちと 食事します。"}, {s:"B",t:"いいですね。"}], options:["あとで", "まえに", "とき"], correct:0, theory:"N のあとで" },
+      { n:35, lines:[{s:"A",t:"日本語を 勉強して ＿＿＿、何を しますか。"}, {s:"B",t:"仕事を します。"}], options:["から", "まで", "だけ"], correct:0, theory:"～てから" },
+      { n:36, lines:[{s:"A",t:"どうして 病院へ 行きますか。"}, {s:"B",t:"熱が ある ＿＿＿です。"}], options:["から", "まで", "だけ"], correct:0, theory:"Reason ～から" },
+      { n:37, lines:[{s:"A",t:"今日は 雨です ＿＿＿、出かけません。"}, {s:"B",t:"そうですね。"}], options:["から", "まで", "しか"], correct:0, theory:"Reason ～から" },
+      { n:38, lines:[{s:"A",t:"忙しい ＿＿＿、行けません。"}, {s:"B",t:"わかりました。"}], options:["ので", "まで", "だけ"], correct:0, theory:"Reason ～ので" },
+      { n:39, lines:[{s:"A",t:"この 店は 小さい ＿＿＿、便利です。"}, {s:"B",t:"そうですね。"}], options:["けど", "から", "まで"], correct:0, theory:"Contrast ～けど" },
+      { n:40, lines:[{s:"A",t:"すみません ＿＿＿、銀行は どこですか。"}, {s:"B",t:"あそこです。"}], options:["が", "を", "に"], correct:0, theory:"～ですが" },
+      { n:41, lines:[{s:"A",t:"ここで 写真を とっても ＿＿＿ ですか。"}, {s:"B",t:"はい、いいですよ。"}], options:["いい", "いけない", "だめな"], correct:0, theory:"～てもいいですか" },
+      { n:42, lines:[{s:"A",t:"ここで 食べても ＿＿＿ ですか。"}, {s:"B",t:"いいえ、だめです。"}], options:["いい", "いけない", "ない"], correct:0, theory:"～てもいいですか" },
+      { n:43, lines:[{s:"A",t:"ここで 写真を とっては ＿＿＿。"}, {s:"B",t:"はい、わかりました。"}], options:["いけません", "いいです", "あります"], correct:0, theory:"～てはいけません" },
+      { n:44, lines:[{s:"A",t:"この 名前を 書いて ＿＿＿。"}, {s:"B",t:"はい。"}], options:["ください", "います", "あります"], correct:0, theory:"～てください" },
+      { n:45, lines:[{s:"A",t:"ここで 待って ＿＿＿。"}, {s:"B",t:"はい、わかりました。"}], options:["ください", "あります", "しましょうか"], correct:0, theory:"～てください" },
+      { n:46, lines:[{s:"A",t:"今、何を して いますか。"}, {s:"B",t:"日本語を 勉強して ＿＿＿。"}], options:["います", "あります", "ください"], correct:0, theory:"～ています" },
+      { n:47, lines:[{s:"A",t:"お父さんは 何を して いますか。"}, {s:"B",t:"会社で ＿＿＿。"}], options:["働いています", "働きました", "働きません"], correct:0, theory:"～ています" },
+      { n:48, lines:[{s:"A",t:"今、雨が ＿＿＿ います。"}, {s:"B",t:"そうですね。"}], options:["ふって", "ふりて", "ふるて"], correct:0, theory:"て-form + います" },
+      { n:49, lines:[{s:"A",t:"ここで タバコを ＿＿＿でください。"}, {s:"B",t:"はい。"}], options:["すわない", "すわって", "すいます"], correct:0, theory:"～ないでください" },
+      { n:50, lines:[{s:"A",t:"明日は 学校へ 行か ＿＿＿。"}, {s:"B",t:"どうしてですか。"}], options:["なくてもいいです", "ないでください", "なければいい"], correct:0, theory:"～なくてもいいです" },
+    ]
+  },
+  "gp2": {
+    title: "📚 Grammar Practice Paper 2 (Q51–100)",
+    questions: [
+      { n:51, lines:[{s:"A",t:"薬を 飲ま ＿＿＿ いけません。"}, {s:"B",t:"はい、わかりました。"}], options:["なければ", "ないで", "なくても"], correct:0, theory:"～なければなりません" },
+      { n:52, lines:[{s:"A",t:"明日 早く 起きないと ＿＿＿。"}, {s:"B",t:"はい。"}], options:["いけません", "あります", "ください"], correct:0, theory:"～ないといけません" },
+      { n:53, lines:[{s:"A",t:"日本へ 行き ＿＿＿。"}, {s:"B",t:"わたしも 行きたいです。"}], options:["たいです", "たくないです", "ませんでした"], correct:0, theory:"～たいです" },
+      { n:54, lines:[{s:"A",t:"今日は 出かけ ＿＿＿。"}, {s:"B",t:"どうして？"}], options:["たくないです", "たいです", "ました"], correct:0, theory:"～たくないです" },
+      { n:55, lines:[{s:"A",t:"何を 飲みたいですか。"}, {s:"B",t:"お茶を ＿＿＿。"}], options:["飲みたいです", "飲みましたか", "飲まないでください"], correct:0, theory:"～たいです" },
+      { n:56, lines:[{s:"A",t:"いっしょに 映画を 見 ＿＿＿。"}, {s:"B",t:"はい、見ましょう。"}], options:["ましょう", "ません", "ました"], correct:0, theory:"～ましょう" },
+      { n:57, lines:[{s:"A",t:"いっしょに 食事を し ＿＿＿。"}, {s:"B",t:"はい、いいですね。"}], options:["ませんか", "ませんでした", "ないでください"], correct:0, theory:"～ませんか" },
+      { n:58, lines:[{s:"A",t:"週末、何を しますか。"}, {s:"B",t:"映画を 見たり、音楽を 聞いたり ＿＿＿。"}], options:["します", "しましたか", "ください"], correct:0, theory:"～たり～たりします" },
+      { n:59, lines:[{s:"A",t:"休みの日は 何を しますか。"}, {s:"B",t:"買い物を したり、家で ＿＿＿。"}], options:["休んだりします", "休みますか", "休まないでください"], correct:0, theory:"～たり～たりします" },
+      { n:60, lines:[{s:"A",t:"日本語を 話す ＿＿＿ が できますか。"}, {s:"B",t:"はい、少しできます。"}], options:["こと", "とき", "ため"], correct:0, theory:"Dictionary form + ことができます" },
+      { n:61, lines:[{s:"A",t:"漢字を 読む ことが ＿＿＿。"}, {s:"B",t:"はい、少し 読めます。"}], options:["できます", "あります", "います"], correct:0, theory:"～ことができます" },
+      { n:62, lines:[{s:"A",t:"毎日 日本語を 勉強する ＿＿＿ しています。"}, {s:"B",t:"いいですね。"}], options:["ように", "ために", "ことが"], correct:0, theory:"～ようにしています" },
+      { n:63, lines:[{s:"A",t:"忘れない ＿＿＿、メモします。"}, {s:"B",t:"そうですね。"}], options:["ように", "ため", "こと"], correct:0, theory:"～ないように" },
+      { n:64, lines:[{s:"A",t:"来月から 日本語を 勉強する ＿＿＿ なりました。"}, {s:"B",t:"そうですか。"}], options:["ことに", "ように", "ために"], correct:1, theory:"～ようになりました" },
+      { n:65, lines:[{s:"A",t:"来週から 毎日 運動する ＿＿＿ しました。"}, {s:"B",t:"いいですね。"}], options:["ことに", "ように", "ために"], correct:0, theory:"" },
+      { n:66, lines:[{s:"A",t:"来月から 日本へ 行く ことに ＿＿＿。"}, {s:"B",t:"おめでとうございます。"}], options:["なりました", "しました", "あります"], correct:0, theory:"～ことになりました" },
+      { n:67, lines:[{s:"A",t:"日本語を 勉強する ＿＿＿、日本へ 行きたいです。"}, {s:"B",t:"がんばってください。"}], options:["ために", "ので", "だけ"], correct:0, theory:"～ために" },
+      { n:68, lines:[{s:"A",t:"健康の ＿＿＿、毎日 運動します。"}, {s:"B",t:"いいですね。"}], options:["ために", "から", "まで"], correct:0, theory:"N + の + ために" },
+      { n:69, lines:[{s:"A",t:"日本語を 勉強する とき、何を 使いますか。"}, {s:"B",t:"教科書を ＿＿＿。"}], options:["使います", "使いましたか", "使わないで"], correct:0, theory:"～とき" },
+      { n:70, lines:[{s:"A",t:"日本へ 行く とき、何を 持って いきますか。"}, {s:"B",t:"パスポートを ＿＿＿。"}], options:["持っていきます", "持ちました", "持たないです"], correct:0, theory:"Dictionary form + とき" },
+      { n:71, lines:[{s:"A",t:"音楽を 聞き ＿＿＿、勉強します。"}, {s:"B",t:"わたしも します。"}], options:["ながら", "たり", "から"], correct:0, theory:"～ながら" },
+      { n:72, lines:[{s:"A",t:"テレビを 見 ＿＿＿、ごはんを 食べます。"}, {s:"B",t:"そうですか。"}], options:["ながら", "てから", "ために"], correct:0, theory:"Verb stem + ながら" },
+      { n:73, lines:[{s:"A",t:"雨が ＿＿＿、家に います。"}, {s:"B",t:"そうしましょう。"}], options:["ふったら", "ふるから", "ふってから"], correct:0, theory:"～たら" },
+      { n:74, lines:[{s:"A",t:"仕事が 終わっ ＿＿＿、電話してください。"}, {s:"B",t:"はい。"}], options:["たら", "たり", "ても"], correct:0, theory:"～たら" },
+      { n:75, lines:[{s:"A",t:"時間が あっ ＿＿＿、いっしょに 行きませんか。"}, {s:"B",t:"はい。"}], options:["たら", "たり", "てから"], correct:0, theory:"～たら" },
+      { n:76, lines:[{s:"A",t:"明日 晴れ ＿＿＿、公園へ 行きましょう。"}, {s:"B",t:"いいですね。"}], options:["だったら", "でしたら", "ではありません"], correct:0, theory:"N / な-adjective + だったら" },
+      { n:77, lines:[{s:"A",t:"電車と バスと、＿＿＿が 便利ですか。"}, {s:"B",t:"電車のほうが 便利です。"}], options:["どちら", "だれ", "どこ"], correct:0, theory:"A と B、どちらが～" },
+      { n:78, lines:[{s:"A",t:"電車と バスと、どちらが 速いですか。"}, {s:"B",t:"電車 ＿＿＿が 速いです。"}], options:["のほう", "しか", "だけ"], correct:0, theory:"～のほうが" },
+      { n:79, lines:[{s:"A",t:"日本語と 英語と、どちらが むずかしいですか。"}, {s:"B",t:"日本語 ＿＿＿が むずかしいです。"}], options:["のほう", "だけ", "しか"], correct:0, theory:"Comparison ～ほうが" },
+      { n:80, lines:[{s:"A",t:"この 店で 何が ＿＿＿ おいしいですか。"}, {s:"B",t:"魚が いちばん おいしいです。"}], options:["いちばん", "もっと", "だけ"], correct:0, theory:"～が いちばん" },
+      { n:81, lines:[{s:"A",t:"夏と 冬と、どちらが ＿＿＿ ですか。"}, {s:"B",t:"夏のほうが 暑いです。"}], options:["暑い", "暑く", "暑かった"], correct:0, theory:"Comparison with adjectives" },
+      { n:82, lines:[{s:"A",t:"この 仕事は ＿＿＿ です。"}, {s:"B",t:"そうですか。がんばってください。"}], options:["たいへん", "たいへんな", "たいへんに"], correct:0, theory:"な-adjective + です" },
+      { n:83, lines:[{s:"A",t:"この かばんは ＿＿＿ ですか。"}, {s:"B",t:"はい、とても 安いです。"}], options:["安い", "安く", "安かった"], correct:0, theory:"い-adjective + です" },
+      { n:84, lines:[{s:"A",t:"日本語を ＿＿＿ 勉強しましたか。"}, {s:"B",t:"2時間ぐらいです。"}], options:["どのくらい", "いくら", "いくつ"], correct:0, theory:"～どのくらい" },
+      { n:85, lines:[{s:"A",t:"一週間に 何 ＿＿＿ 運動しますか。"}, {s:"B",t:"3回ぐらいです。"}], options:["回", "枚", "円"], correct:0, theory:"～に～回" },
+      { n:86, lines:[{s:"A",t:"りんごを 3 ＿＿＿ ください。"}, {s:"B",t:"はい。"}], options:["つ", "回", "枚"], correct:0, theory:"Counter ～つ" },
+      { n:87, lines:[{s:"A",t:"チケットを 2 ＿＿＿ ください。"}, {s:"B",t:"はい。"}], options:["枚", "つ", "回"], correct:0, theory:"Counter ～枚" },
+      { n:88, lines:[{s:"A",t:"この 店には 日本語の 本 ＿＿＿ ありません。"}, {s:"B",t:"そうですか。"}], options:["しか", "だけ", "まで"], correct:0, theory:"～しか～ない" },
+      { n:89, lines:[{s:"A",t:"水 ＿＿＿ 飲みませんでした。"}, {s:"B",t:"どうしてですか。"}], options:["しか", "だけ", "まで"], correct:0, theory:"～しか～ない" },
+      { n:90, lines:[{s:"A",t:"今日は 仕事 ＿＿＿ します。"}, {s:"B",t:"わかりました。"}], options:["だけ", "しか", "ほど"], correct:0, theory:"～だけ" },
+      { n:91, lines:[{s:"A",t:"この 料理は ＿＿＿ から、食べてください。"}, {s:"B",t:"はい。"}], options:["おいしい", "おいしくて", "おいし"], correct:0, theory:"い-adjective basic form" },
+      { n:92, lines:[{s:"A",t:"この 料理は ＿＿＿ すぎます。"}, {s:"B",t:"そうですね。"}], options:["からい", "からく", "から"], correct:0, theory:"い-adjective + すぎます" },
+      { n:93, lines:[{s:"A",t:"この かばんは 大き ＿＿＿。"}, {s:"B",t:"そうですね。"}], options:["すぎます", "すぎです", "すぎるです"], correct:0, theory:"い-adjective + すぎます" },
+      { n:94, lines:[{s:"A",t:"この 本は 読み ＿＿＿ です。"}, {s:"B",t:"いいですね。"}], options:["やすい", "やすく", "やすみ"], correct:0, theory:"Verb stem + やすい" },
+      { n:95, lines:[{s:"A",t:"この 漢字は 書き ＿＿＿ です。"}, {s:"B",t:"そうですね。"}], options:["にくい", "にくく", "にくさ"], correct:0, theory:"Verb stem + にくい" },
+      { n:96, lines:[{s:"A",t:"明日は 雨が ふる ＿＿＿ しれません。"}, {s:"B",t:"じゃあ、かさを 持っていきましょう。"}], options:["かも", "でも", "だけ"], correct:0, theory:"～かもしれません" },
+      { n:97, lines:[{s:"A",t:"明日は いい 天気に なる ＿＿＿ です。"}, {s:"B",t:"よかったですね。"}], options:["でしょう", "でした", "ません"], correct:0, theory:"～でしょう" },
+      { n:98, lines:[{s:"A",t:"田中さんは もう 帰った ＿＿＿ 思います。"}, {s:"B",t:"わたしも そう思います。"}], options:["と", "が", "を"], correct:0, theory:"～と思います" },
+      { n:99, lines:[{s:"A",t:"この 店は 便利だ ＿＿＿ 思いますか。"}, {s:"B",t:"はい、そう思います。"}], options:["と", "を", "に"], correct:0, theory:"な-adjective + だ + と思います" },
+      { n:100, lines:[{s:"A",t:"すみません。この 書類は どこに ＿＿＿ いいですか。"}, {s:"B",t:"受付に 出してください。"}], options:["出せば", "出したら", "出しても"], correct:0, theory:"～ばいいですか" },
+    ]
+  },
+};
+
+/* ============ GRAMMAR PRACTICE ============ */
+const GP_DURATION = 3600; // 1 hour
+const GP_PTS = 2;
+
+let gpState = null;
+
+function gpReset(paperId){
+  const id = paperId || (gpState && gpState.paperId) || 'gp1';
+  if(gpState && gpState.timerId){ clearInterval(gpState.timerId); }
+  gpState = {
+    phase: 'start',
+    paperId: id,
+    qIdx: 0,
+    answers: {},
+    timeLeft: GP_DURATION,
+    timerId: null,
+    autoClosed: false
+  };
+}
+
+function gpCurrentPaper(){
+  return grammarPapers[gpState.paperId];
+}
+
+function gpFormatTime(sec){
+  const m = Math.floor(sec/60).toString().padStart(2,'0');
+  const s = Math.floor(sec%60).toString().padStart(2,'0');
+  return m + ':' + s;
+}
+
+function gpStart(){
+  const id = gpState ? gpState.paperId : 'gp1';
+  gpReset(id);
+  gpState.phase = 'running';
+  gpState.timerId = setInterval(gpTick, 1000);
+  renderGrammarView();
+}
+
+function gpTick(){
+  if(!gpState || gpState.phase !== 'running') return;
+  gpState.timeLeft--;
+  if(gpState.timeLeft <= 0){
+    gpState.timeLeft = 0;
+    gpFinish(true);
+    return;
+  }
+  const clock = document.querySelector('.gp-clock');
+  if(clock){
+    clock.textContent = '⏱️ ' + gpFormatTime(gpState.timeLeft);
+    if(gpState.timeLeft <= 60) clock.classList.add('low');
+  }
+}
+
+function gpFinish(auto){
+  if(!gpState) return;
+  if(gpState.timerId){ clearInterval(gpState.timerId); gpState.timerId = null; }
+  gpState.phase = 'finished';
+  gpState.autoClosed = !!auto;
+  renderGrammarView();
+}
+
+function gpScore(){
+  const paper = gpCurrentPaper();
+  let raw = 0;
+  const max = paper.questions.length * GP_PTS;
+  const wrong = [];
+  paper.questions.forEach((q, qi)=>{
+    const sel = gpState.answers[qi];
+    if(sel === q.correct){
+      raw += GP_PTS;
+    } else {
+      wrong.push({ q, qi, selected: sel });
+    }
+  });
+  return { raw, max, wrong };
+}
+
+function renderGrammarView(){
+  const view = document.getElementById('grammarView');
+  if(!view) return;
+  view.innerHTML = '';
+  if(!gpState){
+    gpState = { phase: 'select', paperId: null, qIdx:0, answers:{}, timeLeft:GP_DURATION, timerId:null, autoClosed:false };
+  }
+
+  if(gpState.phase === 'select' || !gpState.paperId){
+    renderGpSelect(view);
+  } else if(gpState.phase === 'start'){
+    renderGpStart(view);
+  } else if(gpState.phase === 'running'){
+    renderGpRunning(view);
+  } else {
+    renderGpFinish(view);
+  }
+}
+
+function renderGpSelect(container){
+  const card = document.createElement('div');
+  card.className = 'card ep-start-card';
+  card.innerHTML = `
+    <div class="emoji">📚</div>
+    <h2 class="si">Grammar Practice</h2>
+    <p class="si">පේපර් එකක් තෝරන්න · එක පේපර් එකට ප්‍රශ්න 50ක් · වේලාව 1 පැය · එක ප්‍රශ්නයකට ලකුණු 2 (මුළු 100)</p>
+  `;
+  const list = document.createElement('div');
+  list.style.cssText = 'display:flex;flex-direction:column;gap:12px;margin-top:8px;';
+  Object.keys(grammarPapers).forEach(id=>{
+    const p = grammarPapers[id];
+    const btn = document.createElement('button');
+    btn.className = 'exam-show-btn si';
+    btn.style.width = '100%';
+    btn.textContent = p.title;
+    btn.onclick = ()=>{
+      gpReset(id);
+      gpState.phase = 'start';
+      renderGrammarView();
+    };
+    list.appendChild(btn);
+  });
+  card.appendChild(list);
+  container.appendChild(card);
+}
+
+function renderGpStart(container){
+  const paper = gpCurrentPaper();
+  const card = document.createElement('div');
+  card.className = 'card ep-start-card';
+  card.innerHTML = `
+    <div class="emoji">📚</div>
+    <h2 class="si">${paper.title}</h2>
+    <p class="si" style="text-align:left; background:#FBF8FF; border:1px dashed #D8CFF5; border-radius:14px; padding:14px 16px; line-height:1.75;">
+      • ප්‍රශ්න: <strong>50</strong><br>
+      • වේලාව: <strong>1 පැය</strong> (ඉවර වුණොත් auto-submit)<br>
+      • ලකුණු: ප්‍රශ්නයකට 2 · මුළු <strong>100</strong><br>
+      • අවසානයේ වැරදි ප්‍රශ්න + Grammar pattern පෙන්වයි
+    </p>
+  `;
+  const btn = document.createElement('button');
+  btn.className = 'exam-show-btn si';
+  btn.textContent = '▶️ පටන් ගමු';
+  btn.onclick = gpStart;
+  card.appendChild(btn);
+  const back = document.createElement('button');
+  back.className = 'nav-btn prev si';
+  back.style.marginTop = '12px';
+  back.textContent = '← Papers list';
+  back.onclick = ()=>{ gpState.phase = 'select'; gpState.paperId = null; renderGrammarView(); };
+  card.appendChild(back);
+  container.appendChild(card);
+}
+
+function renderGpRunning(container){
+  const paper = gpCurrentPaper();
+  const q = paper.questions[gpState.qIdx];
+  const total = paper.questions.length;
+
+  // Timer
+  const bar = document.createElement('div');
+  bar.className = 'ep-timerbar';
+  const low = gpState.timeLeft <= 60;
+  bar.innerHTML = `
+    <span class="ep-clock gp-clock ${low?'low':''}">⏱️ ${gpFormatTime(gpState.timeLeft)}</span>
+    <span class="t1-qcount si">Q ${gpState.qIdx+1} / ${total}</span>
+  `;
+  container.appendChild(bar);
+
+  // Question card
+  const card = document.createElement('div');
+  card.className = 'card';
+  let inner = `<div class="ep-q-num">Q ${q.n} · ${GP_PTS} pts</div>`;
+
+  // Kaiwa bubbles
+  inner += `<div class="kaiwa">`;
+  q.lines.forEach(ln=>{
+    const side = (ln.s === 'A' || ln.s === '男') ? 'left' : 'right';
+    const text = ln.t.replace(/＿＿＿/g, '<span class="ep-blank">&nbsp;&nbsp;&nbsp;&nbsp;</span>');
+    inner += `<div class="bubble-row ${side}"><div class="bubble"><span class="speaker">${escapeHtml(ln.s)}</span><span class="jp">${text}</span></div></div>`;
+  });
+  inner += `</div>`;
+  card.innerHTML = inner;
+
+  // Options
+  const optsWrap = document.createElement('div');
+  optsWrap.className = 'options';
+  const letters = ['A','B','C'];
+  const selected = gpState.answers[gpState.qIdx];
+  q.options.forEach((opt, idx)=>{
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn';
+    if(selected === idx){
+      btn.style.borderColor = 'var(--indigo)';
+      btn.style.background = '#FAF8FF';
+      btn.style.boxShadow = '0 0 0 2px rgba(75,63,158,0.15)';
+    }
+    btn.innerHTML = `<span class="opt-letter">${letters[idx]}</span><span class="jp">${escapeHtml(opt)}</span>`;
+    btn.onclick = ()=>{
+      gpState.answers[gpState.qIdx] = idx;
+      renderGrammarView();
+    };
+    optsWrap.appendChild(btn);
+  });
+  card.appendChild(optsWrap);
+  container.appendChild(card);
+
+  // Nav
+  const nav = document.createElement('div');
+  nav.className = 'nav-row';
+  const prevBtn = document.createElement('button');
+  prevBtn.className = 'nav-btn prev si';
+  prevBtn.textContent = '← පෙර';
+  prevBtn.disabled = (gpState.qIdx === 0);
+  prevBtn.onclick = ()=>{
+    if(gpState.qIdx > 0){ gpState.qIdx--; renderGrammarView(); }
+  };
+  nav.appendChild(prevBtn);
+
+  const nextBtn = document.createElement('button');
+  nextBtn.className = 'nav-btn next si';
+  const isLast = gpState.qIdx === total - 1;
+  nextBtn.textContent = isLast ? 'Finish →' : 'ඊළඟ →';
+  nextBtn.onclick = ()=>{
+    if(!isLast){
+      gpState.qIdx++;
+      renderGrammarView();
+      return;
+    }
+    gpFinish(false);
+  };
+  nav.appendChild(nextBtn);
+  container.appendChild(nav);
+
+  // Finish early
+  const finRow = document.createElement('div');
+  finRow.className = 'ep-finish-row';
+  const finBtn = document.createElement('button');
+  finBtn.className = 'ep-finish-btn si';
+  finBtn.textContent = '🏁 Finish now';
+  finBtn.onclick = ()=>{
+    if(confirm('Grammar paper එක දැන් අවසන් කරන්නද? ඉතිරි ප්‍රශ්න unanswered වෙයි.')){
+      gpFinish(false);
+    }
+  };
+  finRow.appendChild(finBtn);
+  container.appendChild(finRow);
+}
+
+function renderGpFinish(container){
+  const score = gpScore();
+  const paper = gpCurrentPaper();
+  if(gpState.autoClosed){
+    const banner = document.createElement('div');
+    banner.className = 't1-timeup-banner si';
+    banner.textContent = '⏰ පැය 1 ඉවරයි! Paper එක ඉබේම submit වුණා.';
+    container.appendChild(banner);
+  }
+  const card = document.createElement('div');
+  card.className = 'card complete-card';
+  card.innerHTML = `
+    <div class="emoji">${gpState.autoClosed ? '⏰' : '🎉'}</div>
+    <h2 class="si">${paper.title.replace(/^📚 /,'')} ${gpState.autoClosed ? '— වේලාව ඉවරයි' : 'සම්පූර්ණයි'}!</h2>
+    <p class="si">ලකුණු: <strong>${score.raw} / ${score.max}</strong><br>
+    කාලය ඉතිරි: ${gpFormatTime(gpState.timeLeft)}</p>
+    <div class="score-pill">${score.raw} / 100</div>
+  `;
+  container.appendChild(card);
+
+  const restartRow = document.createElement('div');
+  restartRow.className = 'exam-restart-row';
+  const listBtn = document.createElement('button');
+  listBtn.className = 'nav-btn prev si';
+  listBtn.textContent = '📋 Papers list';
+  listBtn.onclick = ()=>{ if(gpState.timerId){ clearInterval(gpState.timerId); } gpState.phase = 'select'; gpState.paperId = null; renderGrammarView(); };
+  const restartBtn = document.createElement('button');
+  restartBtn.className = 'restart-btn si';
+  restartBtn.style.marginLeft = '10px';
+  restartBtn.textContent = '🔄 නැවත කරමු';
+  restartBtn.onclick = ()=>{ const id = gpState.paperId; gpReset(id); gpState.phase = 'start'; renderGrammarView(); };
+  restartRow.appendChild(listBtn);
+  restartRow.appendChild(restartBtn);
+  container.appendChild(restartRow);
+
+  // Wrong review with theory
+  const wrongSection = document.createElement('div');
+  wrongSection.className = 'review-section';
+  const head = document.createElement('div');
+  head.className = 'review-head';
+  head.innerHTML = `<div class="review-title si">❌ වැරදුණු / නොදුන් (${score.wrong.length})</div>`;
+  wrongSection.appendChild(head);
+
+  if(score.wrong.length === 0){
+    const empty = document.createElement('div');
+    empty.className = 'review-empty si';
+    empty.textContent = '🎊 සියලුම ප්‍රශ්නවලට හරි උත්තර දීලා තියෙනවා!';
+    wrongSection.appendChild(empty);
+  } else {
+    const list = document.createElement('div');
+    list.className = 'review-list';
+    score.wrong.forEach(w=>{
+      const item = document.createElement('div');
+      item.className = 'review-item wrong';
+      const qText = w.q.lines.map(l => l.s + '：' + l.t).join(' / ');
+      const selTxt = (w.selected === undefined || w.selected === null) ? '(උත්තර දීලා නෑ)' : w.q.options[w.selected];
+      item.innerHTML = `
+        <div class="q-label">Q${w.q.n}</div>
+        <div class="q-text jp">${escapeHtml(qText)}</div>
+        <div class="row wrong-ans si"><span class="tag">ඔබේ උත්තරය</span><span class="jp">${escapeHtml(selTxt)}</span></div>
+        <div class="row correct-ans si"><span class="tag">හරි උත්තරය</span><span class="jp">${escapeHtml(w.q.options[w.q.correct])}</span></div>
+        <div class="row meaning-si si" style="margin-top:6px;"><span class="tag">Grammar</span><span class="jp">${escapeHtml(w.q.theory)}</span></div>
       `;
       list.appendChild(item);
     });
